@@ -1,0 +1,9 @@
+
+让远程机器通过root账号可以访问本地的MySQL数据库，登录本地数据
+库执行如下SQL语句：
+
+mysql>use mysql;
+mysql>update user set host = '%' where user = 'root';
+mysql>select host, user from user;
+
+注:执行完此操作以后，需要重启MySQL服务才可生效。

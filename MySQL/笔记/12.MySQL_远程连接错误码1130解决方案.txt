@@ -1,0 +1,28 @@
+
+在客户端连接(mysql -h202.0.0.1 -uroot -p)服务器端的mysql时，不能正常链接。
+
+错误描述:
+ERROR 1130 (HY000): 
+Host '192.168.1.187' is not allowed to connect to this MySQL server
+
+解决方法
+-------------------------------------------------------------------------------
+第一种(授权法)
+1.创建user用户: 
+create user yuedp identified by 'yuedp';
+
+2.授权:
+grant all privileges on *.* to 'yuedp'@'%' identified by 'yuedp' with grant option;
+
+-------------------------------------------------------------------------------
+第二种(改表法)
+1.先从服务器连接mysql:
+mysql -u root -p
+
+2.修改表:
+use mysql;
+update user set host='%' where user='root';
+flush privileges; (刷新MySQL的系统权限相关表)
+select host,user from user where user='root';
+
+重启mysql服务，现在就可以连接了！

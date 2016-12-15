@@ -1,0 +1,3 @@
+
+如果没有使用 DISTINCT，那么 ORDER BY 后面的字段是不用出现在SELECT后面的，
+但使用了 DISTINCT 后，就要求 ORDER BY 后面的字段必须出现在SELECT后面，就像 GROUP BY一样。
