@@ -119,6 +119,7 @@ ethtool -i em1
   [root@localhost ~]# cat /proc/cpuinfo | grep 'svm' //AMD CPU判断方法
    cat /proc/cpuinfo | grep -E '(vmx|svm)' | awk -F 'ds_cpl' '{print $2}' | awk -F ' ' '{print $1}'
    grep -E '(vmx|svm)' /proc/cpuinfo --color
+#图形界面
    virt-manager
 
    常用virsh指令
