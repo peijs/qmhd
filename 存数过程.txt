@@ -1,7 +1,7 @@
-1£º¶¨Òå´æ´¢¹ý³Ì
+1ã€å®šä¹‰å­˜å‚¨è¿‡ç¨‹
 DROP PROCEDURE test_insert ;
  
-DELIMITER $$ //¶¨Òå½áÊø·û
+DELIMITER $$ //å®šä¹‰ç»“æŸç¬¦
  
 CREATE PROCEDURE test_insert() 
    
@@ -11,13 +11,13 @@ BEGIN
   WHILE i<100
   DO   
 INSERT INTO `weddingplans` VALUES ('0', '192', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '40000.00', '20000.00', '20000.00', '20000.00', '100000.00', '/mp/upload/9aa022fa-ff9a-4162-969d-080db3395b40.jpg', '/mp/upload/eba0cfc8-0a0d-44dc-a3c3-dadb54247606.jpg', '/mp/upload/c9d20e2e-95f5-43cc-b2fd-472faa7f0ba4.JPG', '/mp/upload/f6c163a1-99ad-44d3-b6d9-2525b31aaee0.JPG', '/mp/upload/0b0321d0-2b6c-4c96-9884-ea7cfc5dba2c.JPG', '/mp/upload/78d6f1f8-de03-48ab-a9c4-1f76b5399ddd.JPG', '/mp/upload/d862001f-dc70-436d-8b5e-097e7fcf3203.JPG', '/mp/upload/2e1a0faf-6f26-492f-9875-4833093b1d3a.JPG', '1', '2016-12-14 11:26:34', '2016-12-14 11:26:34', null);
-     
   SET i=i+1;   
   END WHILE;   
   COMMIT;
 END $$
  
-DELIMITER ;  //½áÊø·û¸ÄÎª£»
  
-2:Ö´ÐÐ´æ´¢¹ý³Ì
+DELIMITER ;  //ç»“æŸç¬¦æ”¹ä¸ºï¼›
+ 
+2ã€æ‰§è¡Œå­˜å‚¨è¿‡ç¨‹
 call test_insert();
