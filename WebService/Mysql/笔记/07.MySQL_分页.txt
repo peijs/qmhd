@@ -1,0 +1,2 @@
+SQL:
+SELECT * FROM {table_name} LIMIT ({currPage} - 1) * {pageSize},{pageSize};

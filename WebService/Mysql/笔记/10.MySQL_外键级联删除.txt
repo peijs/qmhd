@@ -1,0 +1,196 @@
+首先，目前在产品环境可用的MySQL版本（指4.0.x和4.1.x）中，
+只有InnoDB引擎才允许使用外键，所以，
+我们的数据表必须使用InnoDB引擎。
+下面，我们先创建以下测试用数据库表：
+
+CREATE TABLE `roottb` (
+
+  `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
+
+  `data` VARCHAR(100) NOT NULL DEFAULT '',
+
+  PRIMARY KEY (`id`)
+
+) TYPE=InnoDB;
+
+
+
+CREATE TABLE `subtb` (
+
+  `id` INT(11) UNSIGNED AUTO_INCREMENT NOT NULL,
+
+  `rootid` INT(11) UNSIGNED NOT NULL DEFAULT '0',
+
+  `data` VARCHAR(100) NOT NULL DEFAULT '',
+
+  PRIMARY KEY (`id`),
+
+  INDEX (`rootid`),
+
+  FOREIGN KEY (`rootid`) REFERENCES roottb(`id`) ON DELETE CASCADE
+
+) TYPE=InnoDB;
+注意：
+1、必须使用InnoDB引擎；
+2、外键必须建立索引（INDEX）；
+3、外键绑定关系这里使用了“ ON DELETE CASCADE”，意思是如果外键对应数据被删除，
+将关联数据完全删除，更多信息请参考MySQL手册中关于InnoDB的文档；
+
+好，接着我们再来插入测试数据：
+
+INSERT INTO `roottb` (`id`,`data`)
+
+  VALUES ('1', 'test root line 1'),
+
+         ('2', 'test root line 2'),
+
+         ('3', 'test root line 3');
+
+
+
+INSERT INTO `subtb` (`id`,`rootid`,`data`)
+
+  VALUES ('1', '1', 'test sub line 1 for root 1'),
+
+         ('2', '1', 'test sub line 2 for root 1'),
+
+         ('3', '1', 'test sub line 3 for root 1'),
+
+         ('4', '2', 'test sub line 1 for root 2'),
+
+         ('5', '2', 'test sub line 2 for root 2'),
+
+         ('6', '2', 'test sub line 3 for root 2'),
+
+         ('7', '3', 'test sub line 1 for root 3'),
+
+         ('8', '3', 'test sub line 2 for root 3'),
+
+         ('9', '3', 'test sub line 3 for root 3');
+复制代码
+
+我们先看一下当前数据表的状态：
+
+mysql>; show tables;
+
++----------------+
+
+| Tables_in_test |
+
++----------------+
+
+| roottb         |
+
+| subtb          |
+
++----------------+
+
+2 rows in set (0.00 sec)
+
+
+
+mysql>; select * from `roottb`;
+
++----+------------------+
+
+| id | data             |
+
++----+------------------+
+
+|  1 | test root line 1 |
+
+|  2 | test root line 2 |
+
+|  3 | test root line 3 |
+
++----+------------------+
+
+3 rows in set (0.05 sec)
+
+
+
+mysql>; select * from `subtb`;
+
++----+--------+----------------------------+
+
+| id | rootid | data                       |
+
++----+--------+----------------------------+
+
+|  1 |      1 | test sub line 1 for root 1 |
+
+|  2 |      1 | test sub line 2 for root 1 |
+
+|  3 |      1 | test sub line 3 for root 1 |
+
+|  4 |      2 | test sub line 1 for root 2 |
+
+|  5 |      2 | test sub line 2 for root 2 |
+
+|  6 |      2 | test sub line 3 for root 2 |
+
+|  7 |      3 | test sub line 1 for root 3 |
+
+|  8 |      3 | test sub line 2 for root 3 |
+
+|  9 |      3 | test sub line 3 for root 3 |
+
++----+--------+----------------------------+
+
+9 rows in set (0.01 sec)
+复制代码
+
+嗯，一切都正常，好，下面我们要试验我们的级联删除功能了。
+
+我们将只删除roottb表中id为2的数据记录，看看subtb表中rootid为2的相关子纪录是否会自动删除：
+
+mysql>; delete from `roottb` where `id`='2';
+
+Query OK, 1 row affected (0.03 sec)
+
+
+
+mysql>; select * from `roottb`;
+
++----+------------------+
+
+| id | data             |
+
++----+------------------+
+
+|  1 | test root line 1 |
+
+|  3 | test root line 3 |
+
++----+------------------+
+
+2 rows in set (0.00 sec)
+
+
+
+mysql>; select * from `subtb`;
+
++----+--------+----------------------------+
+
+| id | rootid | data                       |
+
++----+--------+----------------------------+
+
+|  1 |      1 | test sub line 1 for root 1 |
+
+|  2 |      1 | test sub line 2 for root 1 |
+
+|  3 |      1 | test sub line 3 for root 1 |
+
+|  7 |      3 | test sub line 1 for root 3 |
+
+|  8 |      3 | test sub line 2 for root 3 |
+
+|  9 |      3 | test sub line 3 for root 3 |
+
++----+--------+----------------------------+
+
+6 rows in set (0.01 sec)
+复制代码
+
+嗯，看subtb表中对应数据确实自动删除了，测试成功。
