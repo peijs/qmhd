@@ -1,0 +1,194 @@
+#查看网络配置
+ifconfig
+ip addr
+
+#跟踪路由调转节点
+
+tracepath （7版本）
+traceroute
+#在linux下ping 3下
+ping  -c3 192.168.0.1 pi
+
+#监听本地TCP的端口状态
+
+ss -ltn (7版本)
+netstat -anpt
+
+#查看Linux7中的网卡的UUID
+nmcli connection show 
+nmcli device status --连接状态
+
+#更改Centos7中的网卡名称
+1、编辑/etc/sysconfig/grub
+2、在crashkernel=auto 后增加 net.ifnames=0 bisodevname=0
+3、执行grub2-mkconfig -o /boot/grub2/grub.cfg 
+4、重启服务器
+
+#查看端口是否被占用
+lsof -i :22
+
+#查看每个用户最大允许打开文件数量
+
+ulimit -a
+
+#查看当前系统打开的文件数量
+
+lsof | wc -l  
+watch "lsof | wc -l" 
+
+#查看某一进程的打开文件数量
+
+lsof -p pid | wc -l  
+
+#临时设置设置open files数值方法
+
+ulimit -n 65536
+
+永久设置方法
+[plain] view plain copy 在CODE上查看代码片派生到我的代码片
+vim /etc/security/limits.conf  
+在最后加入  
+* soft nofile 4096  
+* hard nofile 4096  
+最前的 * 表示所有用户，可根据需要设置某一用户，例如
+[plain] view plain copy 在CODE上查看代码片派生到我的代码片
+fdipzone soft nofile 8192  
+fdipzone hard nofile 8192  
+lsof -p 1234 | wc -l  
+
+* soft nproc 65536
+* hard nproc 65536
+* soft nofile 65536
+* hard nofile 65535
+* - sigpending 65536
+
+#内存 查询
+
+ps aux --sort -rss
+
+echo 3 > /proc/sys/vm/drop_caches
+
+ps aux --sort -rss | grep mysql | awk -F '/' '{print $1}'
+
+1. [代码]可以使用一下命令查使用内存最多的10个进程     
+ps -aux | sort -k4nr | head -n 10
+2. [代码]可以使用一下命令查使用CPU最多的10个进程     
+ps -aux | sort -k3nr | head -n 10
+
+3、查看CPU 
+[root@localhost ~]#model=`grep "model name" /proc/cpuinfo|head -n 1|sed 's/model name/CPU/'`
+[root@localhost ~]# echo $model
+
+
+lspci                                                    # 查看硬件信息
+lspci|grep RAID                                          # 查看是否支持raid
+lspci -vvv |grep Ethernet                                # 查看网卡型号
+lspci -vvv |grep Kernel|grep driver                      # 查看驱动模块
+modinfo tg3                                              # 查看驱动版本(驱动模块)
+ethtool -i em1     
+ 
+more /proc/cpuinfo                                       # 查看cpu信息
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c    # 查看cpu型号和逻辑核心数
+getconf LONG_BIT                                         # cpu运行的位数
+cat /proc/cpuinfo | grep physical | uniq -c              # 物理cpu个数
+cat /proc/cpuinfo | grep flags | grep ' lm ' | wc -l     # 结果大于0支持64位
+cat /proc/cpuinfo|grep flags  #查看cpu是否支持虚拟化pae支持半虚拟化，IntelVT支持全虚拟化
+more /proc/meminfo                                       # 查看内存信息
+dmidecode                                                # 查看全面硬件信息
+dmidecode | grep "Product Name"                          # 查看服务器型号
+dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range    # 查看内存插槽
+cat /proc/mdstat                                         # 查看软raid信息
+
+
+  ====================================================================================KVM================================================================================
+
+yum groupinstall 'virtual*' -y
+yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python python-virtinst libvirt-client virt-install virt-viewer
+qemu-kvm：qemu模拟器
+qemu-img：qemu磁盘image管理器
+virt-install：用来创建虚拟机的命令行工具
+libvirt：提供libvirtd daemon来管理虚拟机和控制hypervisor
+libvirt-client：提供客户端API用来访问server和提供管理虚拟机命令行工具的virsh实体
+virt-viewer：图形控制台
+service libvirtd start
+判别是否支持虚拟化
+[root@localhost ~]# cat /proc/cpuinfo | grep 'vmx' //Intel CPU判断方法
+[root@localhost ~]# cat /proc/cpuinfo | grep 'svm' //AMD CPU判断方法
+cat /proc/cpuinfo | grep -E '(vmx|svm)' | awk -F 'ds_cpl' '{print $2}' | awk -F ' ' '{print $1}'
+grep -E '(vmx|svm)' /proc/cpuinfo --color
+
+#图形界面
+   virt-manager
+
+常用virsh指令
+1）virsh list 列出当前虚拟机列表，不包括未启动的
+2）virsh list --all 列出所有虚拟机，包括所有已经定义的虚拟机
+3）virsh destroy vm-name 关闭虚拟机
+4）virsh start vm-name 启动虚拟机
+5）virsh edit vm-name 编辑虚拟机xml文件
+6）virsh undefine vm-name 删除虚拟机
+7）virsh shutdown vm-name 停止虚拟机
+8）virsh reboot vm-name 重启虚拟机
+9）virsh autostart vm-name 虚拟机随宿主机启动
+virt-install --virt-type kvm --name kvm-demo --boot network,cdrom,menu=on --ram 2048 --cdrom=/mnt/CentOS-6.7-x86_64-bin-DVD1.iso --graphics vnc,listen=0.0.0.0 --noautoconsole --os-type=linux --os-variant=rhel6 --accelerate --disk path=/data/UnicomSMS/kvm-demo.qcow2,size=5,format=qcow2,bus=virtio --bridge=br0,model=virtio --autostart 
+
+
+
+   ===========================================================================配置本地YUM================================================================================
+
+自动搜索最快镜像插件：yum install yum-fastestmirror
+安装yum图形窗口插件： yum install yumex
+查看可能批量安装的列表： yum grouplist
+
+1 安装
+yum install 全部安装
+yum install package1 安装指定的安装包package1
+yum groupinsall group1 安装程序组group1
+
+2 更新和升级
+yum update 全部更新
+yum update package1 更新指定程序包package1
+yum check-update 检查可更新的程序
+yum upgrade package1 升级指定程序包package1
+yum groupupdate group1 升级程序组group1
+
+3 查找和显示
+yum info package1 显示安装包信息package1
+yum list 显示所有已经安装和可以安装的程序包
+yum list package1 显示指定程序包安装情况package1
+yum groupinfo group1 显示程序组group1信息yum search string 根据关键字string查找安装包
+
+4 删除程序
+yum remove &#124; erase package1 删除程序包package1
+yum groupremove group1 删除程序组group1
+yum deplist package1 查看程序package1依赖情况
+
+5 清除缓存
+yum clean packages 清除缓存目录下的软件包
+yum clean headers 清除缓存目录下的 headers
+yum clean oldheaders 清除缓存目录下旧的 headers
+yum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓存目录下的软件包及旧的headers
+
+[rhel-media]: yum源的名称，可自定义。
+name=linuxprobe : yum仓库的名称，可自定义。
+baseurl=file:///media/cdrom :提供方式包括FTP（ftp://..）、HTTP（http://..）、本地（file:///..）
+enabled=1 : 设置此源是否可用，1为可用，0为禁用。
+gpgcheck=1 : 设置此源是否校验文件，1为校验，0为不校验。
+gpgkey=file:///media/cdrom/RPM-GPG-KEY-redhat-release :若为校验请指定公钥文件地址。
+
+
+mdkir /mnt/cdrom
+mount /dev/cdrom /mnt
+umount /mnt
+
+[UnicomSMS]
+name=Linux Server
+baseurl=file:///mnt/
+enable=1
+gpgcheck=1
+
+rpm --import RPM-GPG-KEY-redhat-release
+
+
+#查看Linxu 系统硬盘型号
+hdparm -i /dev/sda
