@@ -1,58 +1,58 @@
 
-#²é¿´ÍøÂçÅäÖÃ
+#æŸ¥çœ‹ç½‘ç»œé…ç½®
 ifconfig
 ip addr
 
-#¸ú×ÙÂ·ÓÉµ÷×ª½Úµã
+#è·Ÿè¸ªè·¯ç”±è°ƒè½¬èŠ‚ç‚¹
 
-tracepath £¨7°æ±¾£©
+tracepath ï¼ˆ7ç‰ˆæœ¬ï¼‰
 traceroute
-#ÔÚlinuxÏÂping 3ÏÂ
+#åœ¨linuxä¸‹ping 3ä¸‹
 ping  -c3 192.168.0.1 pi
 
-#¼àÌı±¾µØTCPµÄ¶Ë¿Ú×´Ì¬
+#ç›‘å¬æœ¬åœ°TCPçš„ç«¯å£çŠ¶æ€
 
-ss -ltn (7°æ±¾)
+ss -ltn (7ç‰ˆæœ¬)
 netstat -anpt
 
-#²é¿´Linux7ÖĞµÄÍø¿¨µÄUUID
+#æŸ¥çœ‹Linux7ä¸­çš„ç½‘å¡çš„UUID
 nmcli connection show 
-nmcli device status --Á¬½Ó×´Ì¬
+nmcli device status --è¿æ¥çŠ¶æ€
 
-#¸ü¸ÄCentos7ÖĞµÄÍø¿¨Ãû³Æ
-1¡¢±à¼­/etc/sysconfig/grub
-2¡¢ÔÚcrashkernel=auto ºóÔö¼Ó net.ifnames=0 bisodevname=0
-3¡¢Ö´ĞĞgrub2-mkconfig -o /boot/grub2/grub.cfg 
-4¡¢ÖØÆô·şÎñÆ÷
+#æ›´æ”¹Centos7ä¸­çš„ç½‘å¡åç§°
+1ã€ç¼–è¾‘/etc/sysconfig/grub
+2ã€åœ¨crashkernel=auto åå¢åŠ  net.ifnames=0 bisodevname=0
+3ã€æ‰§è¡Œgrub2-mkconfig -o /boot/grub2/grub.cfg 
+4ã€é‡å¯æœåŠ¡å™¨
 
-#²é¿´¶Ë¿ÚÊÇ·ñ±»Õ¼ÓÃ
+#æŸ¥çœ‹ç«¯å£æ˜¯å¦è¢«å ç”¨
 lsof -i :22
 
-#²é¿´Ã¿¸öÓÃ»§×î´óÔÊĞí´ò¿ªÎÄ¼şÊıÁ¿
+#æŸ¥çœ‹æ¯ä¸ªç”¨æˆ·æœ€å¤§å…è®¸æ‰“å¼€æ–‡ä»¶æ•°é‡
 
 ulimit -a
 
-#²é¿´µ±Ç°ÏµÍ³´ò¿ªµÄÎÄ¼şÊıÁ¿
+#æŸ¥çœ‹å½“å‰ç³»ç»Ÿæ‰“å¼€çš„æ–‡ä»¶æ•°é‡
 
 lsof | wc -l  
 watch "lsof | wc -l" 
 
-#²é¿´Ä³Ò»½ø³ÌµÄ´ò¿ªÎÄ¼şÊıÁ¿
+#æŸ¥çœ‹æŸä¸€è¿›ç¨‹çš„æ‰“å¼€æ–‡ä»¶æ•°é‡
 
 lsof -p pid | wc -l  
 
-#ÁÙÊ±ÉèÖÃÉèÖÃopen filesÊıÖµ·½·¨
+#ä¸´æ—¶è®¾ç½®è®¾ç½®open filesæ•°å€¼æ–¹æ³•
 
 ulimit -n 65536
 
-ÓÀ¾ÃÉèÖÃ·½·¨
-[plain] view plain copy ÔÚCODEÉÏ²é¿´´úÂëÆ¬ÅÉÉúµ½ÎÒµÄ´úÂëÆ¬
+æ°¸ä¹…è®¾ç½®æ–¹æ³•
+[plain] view plain copy åœ¨CODEä¸ŠæŸ¥çœ‹ä»£ç ç‰‡æ´¾ç”Ÿåˆ°æˆ‘çš„ä»£ç ç‰‡
 vim /etc/security/limits.conf  
-ÔÚ×îºó¼ÓÈë  
+åœ¨æœ€ååŠ å…¥  
 * soft nofile 4096  
 * hard nofile 4096  
-×îÇ°µÄ * ±íÊ¾ËùÓĞÓÃ»§£¬¿É¸ù¾İĞèÒªÉèÖÃÄ³Ò»ÓÃ»§£¬ÀıÈç
-[plain] view plain copy ÔÚCODEÉÏ²é¿´´úÂëÆ¬ÅÉÉúµ½ÎÒµÄ´úÂëÆ¬
+æœ€å‰çš„ * è¡¨ç¤ºæ‰€æœ‰ç”¨æˆ·ï¼Œå¯æ ¹æ®éœ€è¦è®¾ç½®æŸä¸€ç”¨æˆ·ï¼Œä¾‹å¦‚
+[plain] view plain copy åœ¨CODEä¸ŠæŸ¥çœ‹ä»£ç ç‰‡æ´¾ç”Ÿåˆ°æˆ‘çš„ä»£ç ç‰‡
 fdipzone soft nofile 8192  
 fdipzone hard nofile 8192  
 lsof -p 1234 | wc -l  
@@ -63,7 +63,7 @@ lsof -p 1234 | wc -l
 * hard nofile 65535
 * - sigpending 65536
 
-#ÄÚ´æ ²éÑ¯
+#å†…å­˜ æŸ¥è¯¢
 
 ps aux --sort -rss
 
@@ -71,112 +71,111 @@ echo 3 > /proc/sys/vm/drop_caches
 
 ps aux --sort -rss | grep mysql | awk -F '/' '{print $1}'
 
-1. [´úÂë]¿ÉÒÔÊ¹ÓÃÒ»ÏÂÃüÁî²éÊ¹ÓÃÄÚ´æ×î¶àµÄ10¸ö½ø³Ì     
+1. [ä»£ç ]å¯ä»¥ä½¿ç”¨ä¸€ä¸‹å‘½ä»¤æŸ¥ä½¿ç”¨å†…å­˜æœ€å¤šçš„10ä¸ªè¿›ç¨‹     
 ps -aux | sort -k4nr | head -n 10
-2. [´úÂë]¿ÉÒÔÊ¹ÓÃÒ»ÏÂÃüÁî²éÊ¹ÓÃCPU×î¶àµÄ10¸ö½ø³Ì     
+2. [ä»£ç ]å¯ä»¥ä½¿ç”¨ä¸€ä¸‹å‘½ä»¤æŸ¥ä½¿ç”¨CPUæœ€å¤šçš„10ä¸ªè¿›ç¨‹     
 ps -aux | sort -k3nr | head -n 10
 
-3¡¢²é¿´CPU 
+3ã€æŸ¥çœ‹CPU 
 [root@localhost ~]#model=`grep "model name" /proc/cpuinfo|head -n 1|sed 's/model name/CPU/'`
 [root@localhost ~]# echo $model
 
 
-lspci                                                    # ²é¿´Ó²¼şĞÅÏ¢
-lspci|grep RAID                                          # ²é¿´ÊÇ·ñÖ§³Öraid
-lspci -vvv |grep Ethernet                                # ²é¿´Íø¿¨ĞÍºÅ
-lspci -vvv |grep Kernel|grep driver                      # ²é¿´Çı¶¯Ä£¿é
-modinfo tg3                                              # ²é¿´Çı¶¯°æ±¾(Çı¶¯Ä£¿é)
+lspci                                                    # æŸ¥çœ‹ç¡¬ä»¶ä¿¡æ¯
+lspci|grep RAID                                          # æŸ¥çœ‹æ˜¯å¦æ”¯æŒraid
+lspci -vvv |grep Ethernet                                # æŸ¥çœ‹ç½‘å¡å‹å·
+lspci -vvv |grep Kernel|grep driver                      # æŸ¥çœ‹é©±åŠ¨æ¨¡å—
+modinfo tg3                                              # æŸ¥çœ‹é©±åŠ¨ç‰ˆæœ¬(é©±åŠ¨æ¨¡å—)
 ethtool -i em1     
  
-more /proc/cpuinfo                                       # ²é¿´cpuĞÅÏ¢
-cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c    # ²é¿´cpuĞÍºÅºÍÂß¼­ºËĞÄÊı
-getconf LONG_BIT                                         # cpuÔËĞĞµÄÎ»Êı
-cat /proc/cpuinfo | grep physical | uniq -c              # ÎïÀícpu¸öÊı
-cat /proc/cpuinfo | grep flags | grep ' lm ' | wc -l     # ½á¹û´óÓÚ0Ö§³Ö64Î»
-cat /proc/cpuinfo|grep flags  #²é¿´cpuÊÇ·ñÖ§³ÖĞéÄâ»¯paeÖ§³Ö°ëĞéÄâ»¯£¬IntelVTÖ§³ÖÈ«ĞéÄâ»¯
-more /proc/meminfo                                       # ²é¿´ÄÚ´æĞÅÏ¢
-dmidecode                                                # ²é¿´È«ÃæÓ²¼şĞÅÏ¢
-dmidecode | grep "Product Name"                          # ²é¿´·şÎñÆ÷ĞÍºÅ
-dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range    # ²é¿´ÄÚ´æ²å²Û
-cat /proc/mdstat                                         # ²é¿´ÈíraidĞÅÏ¢
+more /proc/cpuinfo                                       # æŸ¥çœ‹cpuä¿¡æ¯
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c    # æŸ¥çœ‹cpuå‹å·å’Œé€»è¾‘æ ¸å¿ƒæ•°
+getconf LONG_BIT                                         # cpuè¿è¡Œçš„ä½æ•°
+cat /proc/cpuinfo | grep physical | uniq -c              # ç‰©ç†cpuä¸ªæ•°
+cat /proc/cpuinfo | grep flags | grep ' lm ' | wc -l     # ç»“æœå¤§äº0æ”¯æŒ64ä½
+cat /proc/cpuinfo|grep flags  #æŸ¥çœ‹cpuæ˜¯å¦æ”¯æŒè™šæ‹ŸåŒ–paeæ”¯æŒåŠè™šæ‹ŸåŒ–ï¼ŒIntelVTæ”¯æŒå…¨è™šæ‹ŸåŒ–
+more /proc/meminfo                                       # æŸ¥çœ‹å†…å­˜ä¿¡æ¯
+dmidecode                                                # æŸ¥çœ‹å…¨é¢ç¡¬ä»¶ä¿¡æ¯
+dmidecode | grep "Product Name"                          # æŸ¥çœ‹æœåŠ¡å™¨å‹å·
+dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range    # æŸ¥çœ‹å†…å­˜æ’æ§½
+cat /proc/mdstat                                         # æŸ¥çœ‹è½¯raidä¿¡æ¯
 
 
   ====================================================================================KVM================================================================================
 
-  yum groupinstall 'virtual*' -y
+yum groupinstall 'virtual*' -y
+yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python python-virtinst libvirt-client virt-install virt-viewer
+qemu-kvmï¼šqemuæ¨¡æ‹Ÿå™¨
+qemu-imgï¼šqemuç£ç›˜imageç®¡ç†å™¨
+virt-installï¼šç”¨æ¥åˆ›å»ºè™šæ‹Ÿæœºçš„å‘½ä»¤è¡Œå·¥å…·
+libvirtï¼šæä¾›libvirtd daemonæ¥ç®¡ç†è™šæ‹Ÿæœºå’Œæ§åˆ¶hypervisor
+libvirt-clientï¼šæä¾›å®¢æˆ·ç«¯APIç”¨æ¥è®¿é—®serverå’Œæä¾›ç®¡ç†è™šæ‹Ÿæœºå‘½ä»¤è¡Œå·¥å…·çš„virshå®ä½“
+virt-viewerï¼šå›¾å½¢æ§åˆ¶å°
+service libvirtd start
+åˆ¤åˆ«æ˜¯å¦æ”¯æŒè™šæ‹ŸåŒ–
+[root@localhost ~]# cat /proc/cpuinfo | grep 'vmx' //Intel CPUåˆ¤æ–­æ–¹æ³•
+[root@localhost ~]# cat /proc/cpuinfo | grep 'svm' //AMD CPUåˆ¤æ–­æ–¹æ³•
+cat /proc/cpuinfo | grep -E '(vmx|svm)' | awk -F 'ds_cpl' '{print $2}' | awk -F ' ' '{print $1}'
+grep -E '(vmx|svm)' /proc/cpuinfo --color
 
-  yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python python-virtinst libvirt-client virt-install virt-viewer
-  qemu-kvm£ºqemuÄ£ÄâÆ÷
-  qemu-img£ºqemu´ÅÅÌimage¹ÜÀíÆ÷
-  virt-install£ºÓÃÀ´´´½¨ĞéÄâ»úµÄÃüÁîĞĞ¹¤¾ß
-  libvirt£ºÌá¹©libvirtd daemonÀ´¹ÜÀíĞéÄâ»úºÍ¿ØÖÆhypervisor
-  libvirt-client£ºÌá¹©¿Í»§¶ËAPIÓÃÀ´·ÃÎÊserverºÍÌá¹©¹ÜÀíĞéÄâ»úÃüÁîĞĞ¹¤¾ßµÄvirshÊµÌå
-  virt-viewer£ºÍ¼ĞÎ¿ØÖÆÌ¨
-  service libvirtd start
-  ÅĞ±ğÊÇ·ñÖ§³ÖĞéÄâ»¯
-  [root@localhost ~]# cat /proc/cpuinfo | grep 'vmx' //Intel CPUÅĞ¶Ï·½·¨
-  [root@localhost ~]# cat /proc/cpuinfo | grep 'svm' //AMD CPUÅĞ¶Ï·½·¨
-   cat /proc/cpuinfo | grep -E '(vmx|svm)' | awk -F 'ds_cpl' '{print $2}' | awk -F ' ' '{print $1}'
-   grep -E '(vmx|svm)' /proc/cpuinfo --color
-
-#Í¼ĞÎ½çÃæ
+#å›¾å½¢ç•Œé¢
    virt-manager
 
-   ³£ÓÃvirshÖ¸Áî
-   1£©virsh list ÁĞ³öµ±Ç°ĞéÄâ»úÁĞ±í£¬²»°üÀ¨Î´Æô¶¯µÄ
-   2£©virsh list --all ÁĞ³öËùÓĞĞéÄâ»ú£¬°üÀ¨ËùÓĞÒÑ¾­¶¨ÒåµÄĞéÄâ»ú
-   3£©virsh destroy vm-name ¹Ø±ÕĞéÄâ»ú
-   4£©virsh start vm-name Æô¶¯ĞéÄâ»ú
-   5£©virsh edit vm-name ±à¼­ĞéÄâ»úxmlÎÄ¼ş
-   6£©virsh undefine vm-name É¾³ıĞéÄâ»ú
-   7£©virsh shutdown vm-name Í£Ö¹ĞéÄâ»ú
-   8£©virsh reboot vm-name ÖØÆôĞéÄâ»ú
-   9£©virsh autostart vm-name ĞéÄâ»úËæËŞÖ÷»úÆô¶¯
-   virt-install --virt-type kvm --name kvm-demo --boot network,cdrom,menu=on --ram 2048 --cdrom=/mnt/CentOS-6.7-x86_64-bin-DVD1.iso --graphics vnc,listen=0.0.0.0 --noautoconsole --os-type=linux --os-variant=rhel6 --accelerate --disk path=/data/UnicomSMS/kvm-demo.qcow2,size=5,format=qcow2,bus=virtio --bridge=br0,model=virtio --autostart 
+å¸¸ç”¨virshæŒ‡ä»¤
+1ï¼‰virsh list åˆ—å‡ºå½“å‰è™šæ‹Ÿæœºåˆ—è¡¨ï¼Œä¸åŒ…æ‹¬æœªå¯åŠ¨çš„
+2ï¼‰virsh list --all åˆ—å‡ºæ‰€æœ‰è™šæ‹Ÿæœºï¼ŒåŒ…æ‹¬æ‰€æœ‰å·²ç»å®šä¹‰çš„è™šæ‹Ÿæœº
+3ï¼‰virsh destroy vm-name å…³é—­è™šæ‹Ÿæœº
+4ï¼‰virsh start vm-name å¯åŠ¨è™šæ‹Ÿæœº
+5ï¼‰virsh edit vm-name ç¼–è¾‘è™šæ‹Ÿæœºxmlæ–‡ä»¶
+6ï¼‰virsh undefine vm-name åˆ é™¤è™šæ‹Ÿæœº
+7ï¼‰virsh shutdown vm-name åœæ­¢è™šæ‹Ÿæœº
+8ï¼‰virsh reboot vm-name é‡å¯è™šæ‹Ÿæœº
+9ï¼‰virsh autostart vm-name è™šæ‹Ÿæœºéšå®¿ä¸»æœºå¯åŠ¨
+virt-install --virt-type kvm --name kvm-demo --boot network,cdrom,menu=on --ram 2048 --cdrom=/mnt/CentOS-6.7-x86_64-bin-DVD1.iso --graphics vnc,listen=0.0.0.0 --noautoconsole --os-type=linux --os-variant=rhel6 --accelerate --disk path=/data/UnicomSMS/kvm-demo.qcow2,size=5,format=qcow2,bus=virtio --bridge=br0,model=virtio --autostart 
 
 
 
-   ===========================================================================ÅäÖÃ±¾µØYUM================================================================================
+   ===========================================================================é…ç½®æœ¬åœ°YUM================================================================================
 
-   ×Ô¶¯ËÑË÷×î¿ì¾µÏñ²å¼ş£º   yum install yum-fastestmirror
-   °²×°yumÍ¼ĞÎ´°¿Ú²å¼ş£º    yum install yumex
-   ²é¿´¿ÉÄÜÅúÁ¿°²×°µÄÁĞ±í£º yum grouplist
+   è‡ªåŠ¨æœç´¢æœ€å¿«é•œåƒæ’ä»¶ï¼š   yum install yum-fastestmirror
+   å®‰è£…yumå›¾å½¢çª—å£æ’ä»¶ï¼š    yum install yumex
+   æŸ¥çœ‹å¯èƒ½æ‰¹é‡å®‰è£…çš„åˆ—è¡¨ï¼š yum grouplist
 
-   1 °²×°
-   yum install È«²¿°²×°
-   yum install package1 °²×°Ö¸¶¨µÄ°²×°°üpackage1
-   yum groupinsall group1 °²×°³ÌĞò×égroup1
+   1 å®‰è£…
+   yum install å…¨éƒ¨å®‰è£…
+   yum install package1 å®‰è£…æŒ‡å®šçš„å®‰è£…åŒ…package1
+   yum groupinsall group1 å®‰è£…ç¨‹åºç»„group1
 
-   2 ¸üĞÂºÍÉı¼¶
-   yum update È«²¿¸üĞÂ
-   yum update package1 ¸üĞÂÖ¸¶¨³ÌĞò°üpackage1
-   yum check-update ¼ì²é¿É¸üĞÂµÄ³ÌĞò
-   yum upgrade package1 Éı¼¶Ö¸¶¨³ÌĞò°üpackage1
-   yum groupupdate group1 Éı¼¶³ÌĞò×égroup1
+   2 æ›´æ–°å’Œå‡çº§
+   yum update å…¨éƒ¨æ›´æ–°
+   yum update package1 æ›´æ–°æŒ‡å®šç¨‹åºåŒ…package1
+   yum check-update æ£€æŸ¥å¯æ›´æ–°çš„ç¨‹åº
+   yum upgrade package1 å‡çº§æŒ‡å®šç¨‹åºåŒ…package1
+   yum groupupdate group1 å‡çº§ç¨‹åºç»„group1
 
-   3 ²éÕÒºÍÏÔÊ¾
-   yum info package1 ÏÔÊ¾°²×°°üĞÅÏ¢package1
-   yum list ÏÔÊ¾ËùÓĞÒÑ¾­°²×°ºÍ¿ÉÒÔ°²×°µÄ³ÌĞò°ü
-   yum list package1 ÏÔÊ¾Ö¸¶¨³ÌĞò°ü°²×°Çé¿öpackage1
-   yum groupinfo group1 ÏÔÊ¾³ÌĞò×égroup1ĞÅÏ¢yum search string ¸ù¾İ¹Ø¼ü×Östring²éÕÒ°²×°°ü
+   3 æŸ¥æ‰¾å’Œæ˜¾ç¤º
+   yum info package1 æ˜¾ç¤ºå®‰è£…åŒ…ä¿¡æ¯package1
+   yum list æ˜¾ç¤ºæ‰€æœ‰å·²ç»å®‰è£…å’Œå¯ä»¥å®‰è£…çš„ç¨‹åºåŒ…
+   yum list package1 æ˜¾ç¤ºæŒ‡å®šç¨‹åºåŒ…å®‰è£…æƒ…å†µpackage1
+   yum groupinfo group1 æ˜¾ç¤ºç¨‹åºç»„group1ä¿¡æ¯yum search string æ ¹æ®å…³é”®å­—stringæŸ¥æ‰¾å®‰è£…åŒ…
 
-   4 É¾³ı³ÌĞò
-   yum remove &#124; erase package1 É¾³ı³ÌĞò°üpackage1
-   yum groupremove group1 É¾³ı³ÌĞò×égroup1
-   yum deplist package1 ²é¿´³ÌĞòpackage1ÒÀÀµÇé¿ö
+   4 åˆ é™¤ç¨‹åº
+   yum remove &#124; erase package1 åˆ é™¤ç¨‹åºåŒ…package1
+   yum groupremove group1 åˆ é™¤ç¨‹åºç»„group1
+   yum deplist package1 æŸ¥çœ‹ç¨‹åºpackage1ä¾èµ–æƒ…å†µ
 
-   5 Çå³ı»º´æ
-   yum clean packages Çå³ı»º´æÄ¿Â¼ÏÂµÄÈí¼ş°ü
-   yum clean headers Çå³ı»º´æÄ¿Â¼ÏÂµÄ headers
-   yum clean oldheaders Çå³ı»º´æÄ¿Â¼ÏÂ¾ÉµÄ headers
-   yum clean, yum clean all (= yum clean packages; yum clean oldheaders) Çå³ı»º´æÄ¿Â¼ÏÂµÄÈí¼ş°ü¼°¾ÉµÄheaders
+   5 æ¸…é™¤ç¼“å­˜
+   yum clean packages æ¸…é™¤ç¼“å­˜ç›®å½•ä¸‹çš„è½¯ä»¶åŒ…
+   yum clean headers æ¸…é™¤ç¼“å­˜ç›®å½•ä¸‹çš„ headers
+   yum clean oldheaders æ¸…é™¤ç¼“å­˜ç›®å½•ä¸‹æ—§çš„ headers
+   yum clean, yum clean all (= yum clean packages; yum clean oldheaders) æ¸…é™¤ç¼“å­˜ç›®å½•ä¸‹çš„è½¯ä»¶åŒ…åŠæ—§çš„headers
 
-   [rhel-media]: yumÔ´µÄÃû³Æ£¬¿É×Ô¶¨Òå¡£
-   name=linuxprobe : yum²Ö¿âµÄÃû³Æ£¬¿É×Ô¶¨Òå¡£
-   baseurl=file:///media/cdrom :Ìá¹©·½Ê½°üÀ¨FTP£¨ftp://..£©¡¢HTTP£¨http://..£©¡¢±¾µØ£¨file:///..£©
-   enabled=1 : ÉèÖÃ´ËÔ´ÊÇ·ñ¿ÉÓÃ£¬1Îª¿ÉÓÃ£¬0Îª½ûÓÃ¡£
-   gpgcheck=1 : ÉèÖÃ´ËÔ´ÊÇ·ñĞ£ÑéÎÄ¼ş£¬1ÎªĞ£Ñé£¬0Îª²»Ğ£Ñé¡£
-   gpgkey=file:///media/cdrom/RPM-GPG-KEY-redhat-release :ÈôÎªĞ£ÑéÇëÖ¸¶¨¹«Ô¿ÎÄ¼şµØÖ·¡£
+   [rhel-media]: yumæºçš„åç§°ï¼Œå¯è‡ªå®šä¹‰ã€‚
+   name=linuxprobe : yumä»“åº“çš„åç§°ï¼Œå¯è‡ªå®šä¹‰ã€‚
+   baseurl=file:///media/cdrom :æä¾›æ–¹å¼åŒ…æ‹¬FTPï¼ˆftp://..ï¼‰ã€HTTPï¼ˆhttp://..ï¼‰ã€æœ¬åœ°ï¼ˆfile:///..ï¼‰
+   enabled=1 : è®¾ç½®æ­¤æºæ˜¯å¦å¯ç”¨ï¼Œ1ä¸ºå¯ç”¨ï¼Œ0ä¸ºç¦ç”¨ã€‚
+   gpgcheck=1 : è®¾ç½®æ­¤æºæ˜¯å¦æ ¡éªŒæ–‡ä»¶ï¼Œ1ä¸ºæ ¡éªŒï¼Œ0ä¸ºä¸æ ¡éªŒã€‚
+   gpgkey=file:///media/cdrom/RPM-GPG-KEY-redhat-release :è‹¥ä¸ºæ ¡éªŒè¯·æŒ‡å®šå…¬é’¥æ–‡ä»¶åœ°å€ã€‚
 
 
    mdkir /mnt/cdrom
@@ -192,7 +191,7 @@ cat /proc/mdstat                                         # ²é¿´ÈíraidĞÅÏ¢
    rpm --import RPM-GPG-KEY-redhat-release
 
 
-   #²é¿´Linxu ÏµÍ³Ó²ÅÌĞÍºÅ
+   #æŸ¥çœ‹Linxu ç³»ç»Ÿç¡¬ç›˜å‹å·
    hdparm -i /dev/sda
 
 
