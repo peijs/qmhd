@@ -1,3 +1,4 @@
+
 #²é¿´ÍøÂçÅäÖÃ
 ifconfig
 ip addr
@@ -75,6 +76,7 @@ ps -aux | sort -k4nr | head -n 10
 2. [´úÂë]¿ÉÒÔÊ¹ÓÃÒ»ÏÂÃüÁî²éÊ¹ÓÃCPU×î¶àµÄ10¸ö½ø³Ì     
 ps -aux | sort -k3nr | head -n 10
 
+
 3¡¢²é¿´CPU 
 [root@localhost ~]#model=`grep "model name" /proc/cpuinfo|head -n 1|sed 's/model name/CPU/'`
 [root@localhost ~]# echo $model
@@ -86,6 +88,7 @@ lspci -vvv |grep Ethernet                                # ²é¿´Íø¿¨ĞÍºÅ
 lspci -vvv |grep Kernel|grep driver                      # ²é¿´Çı¶¯Ä£¿é
 modinfo tg3                                              # ²é¿´Çı¶¯°æ±¾(Çı¶¯Ä£¿é)
 ethtool -i em1     
+ 
  
 more /proc/cpuinfo                                       # ²é¿´cpuĞÅÏ¢
 cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c    # ²é¿´cpuĞÍºÅºÍÂß¼­ºËĞÄÊı
@@ -100,9 +103,10 @@ dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range    # ²é¿´Ä
 cat /proc/mdstat                                         # ²é¿´ÈíraidĞÅÏ¢
 
 
-  ====================================================================================KVM================================================================================
+====================================================================================KVM================================================================================
 
 yum groupinstall 'virtual*' -y
+
 yum install qemu-kvm qemu-img virt-manager libvirt libvirt-python python-virtinst libvirt-client virt-install virt-viewer
 qemu-kvm£ºqemuÄ£ÄâÆ÷
 qemu-img£ºqemu´ÅÅÌimage¹ÜÀíÆ÷
@@ -114,11 +118,9 @@ service libvirtd start
 ÅĞ±ğÊÇ·ñÖ§³ÖĞéÄâ»¯
 [root@localhost ~]# cat /proc/cpuinfo | grep 'vmx' //Intel CPUÅĞ¶Ï·½·¨
 [root@localhost ~]# cat /proc/cpuinfo | grep 'svm' //AMD CPUÅĞ¶Ï·½·¨
-cat /proc/cpuinfo | grep -E '(vmx|svm)' | awk -F 'ds_cpl' '{print $2}' | awk -F ' ' '{print $1}'
+ cat /proc/cpuinfo | grep -E '(vmx|svm)' | awk -F 'ds_cpl' '{print $2}' | awk -F ' ' '{print $1}'
 grep -E '(vmx|svm)' /proc/cpuinfo --color
-
-#Í¼ĞÎ½çÃæ
-   virt-manager
+virt-manager
 
 ³£ÓÃvirshÖ¸Áî
 1£©virsh list ÁĞ³öµ±Ç°ĞéÄâ»úÁĞ±í£¬²»°üÀ¨Î´Æô¶¯µÄ
@@ -134,10 +136,23 @@ virt-install --virt-type kvm --name kvm-demo --boot network,cdrom,menu=on --ram 
 
 
 
-   ===========================================================================ÅäÖÃ±¾µØYUM================================================================================
-
-×Ô¶¯ËÑË÷×î¿ì¾µÏñ²å¼ş£ºyum install yum-fastestmirror
-°²×°yumÍ¼ĞÎ´°¿Ú²å¼ş£º yum install yumex
+===========================================================================ÅäÖÃ±¾µØYUM================================================================================
+yum list all                ##ÁĞ³öËùÓĞ°²×ª°ü
+yum list installed          ###ÁĞ³öÒÑ¾­°²×°µÄ
+yum list available          ###ÁĞ³öÃ»ÓĞ°²×°µÄ
+yum remove software         ###Ğ¶ÔØÈí¼ş
+yum install software        ###°²×°Èí¼ş
+yum search ¹Ø¼ü×Ö            ###ËÑË÷Óë¹Ø¼ü×ÖÏà¹ØµÄÈí¼ş
+yum whatprovides ÎÄ¼ş        ###ËÑË÷°üº¬´ËÎÄ¼şµÄ°ü
+yum reinstall software      ###´ÓĞÂ°²×°Èí¼ş
+yum localinstall µÚÈı·½Èí¼ş  ##°²×°¸ÃÈí¼ş²¢½â¾öÒÀÀµ¹ØÏµ
+yum info software           ###²éÑ¯Èí¼şĞÅÏ¢
+yum groups list             ###ÁĞ³öÈí¼ş×é
+yum groups install          ###°²×°×é
+yum groups remove           ###Ğ¶ÔØ×é
+yum groups info             ###²é¿´×éĞÅÏ¢
+×Ô¶¯ËÑË÷×î¿ì¾µÏñ²å¼ş£º   yum install yum-fastestmirror
+°²×°yumÍ¼ĞÎ´°¿Ú²å¼ş£º    yum install yumex
 ²é¿´¿ÉÄÜÅúÁ¿°²×°µÄÁĞ±í£º yum grouplist
 
 1 °²×°
@@ -176,7 +191,6 @@ enabled=1 : ÉèÖÃ´ËÔ´ÊÇ·ñ¿ÉÓÃ£¬1Îª¿ÉÓÃ£¬0Îª½ûÓÃ¡£
 gpgcheck=1 : ÉèÖÃ´ËÔ´ÊÇ·ñĞ£ÑéÎÄ¼ş£¬1ÎªĞ£Ñé£¬0Îª²»Ğ£Ñé¡£
 gpgkey=file:///media/cdrom/RPM-GPG-KEY-redhat-release :ÈôÎªĞ£ÑéÇëÖ¸¶¨¹«Ô¿ÎÄ¼şµØÖ·¡£
 
-
 mdkir /mnt/cdrom
 mount /dev/cdrom /mnt
 umount /mnt
@@ -189,6 +203,132 @@ gpgcheck=1
 
 rpm --import RPM-GPG-KEY-redhat-release
 
+#RHEL/CentOS 7.x/6.x/5.x¿ªÆôEPEL²Ö¿â
+
+RHEL/CentOS 7 64bit
+
+## RHEL/CentOS 7 64-Bit ##
+# wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
+# rpm -ivh epel-release-7-9.noarch.rpm
+
+
+RHEL/CentOS 6 32-64 Bit
+
+## RHEL/CentOS 6 32-Bit ##
+# wget http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+# rpm -ivh epel-release-6-8.noarch.rpm
+## RHEL/CentOS 6 64-Bit ##
+# wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+# rpm -ivh epel-release-6-8.noarch.rpm
+
+
+RHEL/CentOS 5 32-64 Bit
+
+## RHEL/CentOS 5 32-Bit ##
+# wget http://download.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
+# rpm -ivh epel-release-5-4.noarch.rpm
+## RHEL/CentOS 5 64-Bit ##
+# wget http://download.fedoraproject.org/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm
+# rpm -ivh epel-release-5-4.noarch.rpm
+
+
+RHEL/CentOS 4 32-64 Bit
+
+## RHEL/CentOS 4 32-Bit ##
+# wget http://download.fedoraproject.org/pub/epel/4/i386/epel-release-4-10.noarch.rpm
+# rpm -ivh epel-release-4-10.noarch.rpm
+## RHEL/CentOS 4 64-Bit ##
+# wget http://download.fedoraproject.org/pub/epel/4/x86_64/epel-release-4-10.noarch.rpm
+# rpm -ivh epel-release-4-10.noarch.rpm
+
 
 #²é¿´Linxu ÏµÍ³Ó²ÅÌĞÍºÅ
 hdparm -i /dev/sda
+
+#Centos 7.x ³õÊ¼»¯ÅäÖÃ
+
+#¹Ø±ÕÏµÍ³Selinux
+[root@localhost ~]/usr/sbin/setenforce 0  #ÁÙÊ±¹Ø±Õ
+[root@localhost ~]# vi /etc/selinux/config
+#SELINUX=enforcing
+SELINUX=disabled
+#ÖØÆô»úÆ÷£¬²é¿´selinux×´Ì¬
+[root@localhost ~]# sestatus
+SELinux status:                 disabled
+
+#¹Ø±ÕFirewalld
+
+1¡¢firewalldµÄ»ù±¾Ê¹ÓÃ
+Æô¶¯£º systemctl start firewalld
+²é¿´×´Ì¬£º systemctl status firewalld 
+Í£Ö¹£º systemctl disable firewalld
+½ûÓÃ£º systemctl stop firewalld
+ 
+2.systemctlÊÇCentOS7µÄ·şÎñ¹ÜÀí¹¤¾ßÖĞÖ÷ÒªµÄ¹¤¾ß£¬ËüÈÚºÏÖ®Ç°serviceºÍchkconfigµÄ¹¦ÄÜÓÚÒ»Ìå¡£
+Æô¶¯Ò»¸ö·şÎñ£ºsystemctl start firewalld.service
+¹Ø±ÕÒ»¸ö·şÎñ£ºsystemctl stop firewalld.service
+ÖØÆôÒ»¸ö·şÎñ£ºsystemctl restart firewalld.service
+ÏÔÊ¾Ò»¸ö·şÎñµÄ×´Ì¬£ºsystemctl status firewalld.service
+ÔÚ¿ª»úÊ±ÆôÓÃÒ»¸ö·şÎñ£ºsystemctl enable firewalld.service
+ÔÚ¿ª»úÊ±½ûÓÃÒ»¸ö·şÎñ£ºsystemctl disable firewalld.service
+²é¿´·şÎñÊÇ·ñ¿ª»úÆô¶¯£ºsystemctl is-enabled firewalld.service
+²é¿´ÒÑÆô¶¯µÄ·şÎñÁĞ±í£ºsystemctl list-unit-files|grep enabled
+²é¿´Æô¶¯Ê§°ÜµÄ·şÎñÁĞ±í£ºsystemctl --failed
+
+3.ÅäÖÃfirewalld-cmd
+
+²é¿´°æ±¾£º firewall-cmd --version
+²é¿´°ïÖú£º firewall-cmd --help
+ÏÔÊ¾×´Ì¬£º firewall-cmd --state
+²é¿´ËùÓĞ´ò¿ªµÄ¶Ë¿Ú£º firewall-cmd --zone=public --list-ports
+¸üĞÂ·À»ğÇ½¹æÔò£º firewall-cmd --reload
+²é¿´ÇøÓòĞÅÏ¢:  firewall-cmd --get-active-zones
+²é¿´Ö¸¶¨½Ó¿ÚËùÊôÇøÓò£º firewall-cmd --get-zone-of-interface=eth0
+¾Ü¾øËùÓĞ°ü£ºfirewall-cmd --panic-on
+È¡Ïû¾Ü¾ø×´Ì¬£º firewall-cmd --panic-off
+²é¿´ÊÇ·ñ¾Ü¾ø£º firewall-cmd --query-panic
+ 
+ÄÇÔõÃ´¿ªÆôÒ»¸ö¶Ë¿ÚÄØ
+Ìí¼Ó
+firewall-cmd --zone=public --add-port=80/tcp --permanent    £¨--permanentÓÀ¾ÃÉúĞ§£¬Ã»ÓĞ´Ë²ÎÊıÖØÆôºóÊ§Ğ§£©
+ÖØĞÂÔØÈë
+firewall-cmd --reload
+²é¿´
+firewall-cmd --zone= public --query-port=80/tcp
+É¾³ı
+firewall-cmd --zone= public --remove-port=80/tcp --permanent
+
+
+#.tar.gz 
+½âÑ¹£ºtar zxvf FileName.tar.gz 
+Ñ¹Ëõ£ºtar zcvf FileName.tar.gz DirName --remove-files
+
+
+#WIFI
+airmon-ng start wlan0
+airodump-ng  wlan0mon
+airodump-ng -c 11  --bssid D8:24:BD:78:2C:B8 -w /usr/local/ wlan0mon
+mdk3 wlan0mon a -a 5C:63:BF:46:49:A0 -c 2000
+macof -i eht0
+yersinia -G
+
+
+#Centos7.X
+vi /etc/profile   
+JAVA_HOME=/usr/local/jdk1.8   
+JRE_HOME=/usr/local/jdk1.8/jre   
+CLASSPATH=.:$JRE_HOME/lib:$JAVA_HOME/lib/tools.jar   
+PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH   
+export JAVA_HOME CLASSPATH PATH JRE_HOME   
+source /etc/profile
+
+
+#Çå»ª´óÑ§
+deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+#ÖĞ¿Æ´ókaliÔ´
+deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+#°¢ÀïÔÆkaliÔ´
+deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+
+
+
