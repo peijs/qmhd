@@ -1,3 +1,4 @@
+
 #²é¿´ÍøÂçÅäÖÃ
 ifconfig
 ip addr
