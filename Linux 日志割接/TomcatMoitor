@@ -1,0 +1,12 @@
+/data/UnicomSMS/Monitor/logs/TomcatMonitor.log {
+daily		#每天
+minsize 10M	#若日志文件达到10M，则触发切分
+missingok	#如果日志文件不存在，不报错
+rotate 60	#保留备份60天
+dateext		#增加日期作为后缀，不然会是一串无意义的数字
+compress	#压缩备份文件
+notifempty	#日志文件为空不进行转储
+sharedscripts	#共享脚本，表示切换时只执行一次脚本
+copytruncate	#先复制running.log内容至历史文件，然后清空running.log的内容
+}
+#http://www.tuicool.com/articles/mQB3umA
