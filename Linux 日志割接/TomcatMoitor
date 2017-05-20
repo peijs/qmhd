@@ -10,3 +10,4 @@ sharedscripts	#共享脚本，表示切换时只执行一次脚本
 copytruncate	#先复制running.log内容至历史文件，然后清空running.log的内容
 }
 #http://www.tuicool.com/articles/mQB3umA
+
