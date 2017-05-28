@@ -268,6 +268,8 @@ SELinux status:                 disabled
 启动一个服务：systemctl start firewalld.service
 关闭一个服务：systemctl stop firewalld.service
 重启一个服务：systemctl restart firewalld.service
+删除一个服务：systemctl mask firewalld.service
+还原一个服务：systemctl unmask firewalld.service
 显示一个服务的状态：systemctl status firewalld.service
 在开机时启用一个服务：systemctl enable firewalld.service
 在开机时禁用一个服务：systemctl disable firewalld.service
@@ -315,15 +317,22 @@ yersinia -G
 
 
 #Centos7.X
-vi /etc/profile   
-JAVA_HOME=/usr/local/jdk1.8   
-JRE_HOME=/usr/local/jdk1.8/jre   
-CLASSPATH=.:$JRE_HOME/lib:$JAVA_HOME/lib/tools.jar   
-PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH   
-export JAVA_HOME CLASSPATH PATH JRE_HOME   
+vi /etc/profile
+
+#JAVA
+export JAVA_HOME=/data/UnicomSMS/jdk1.8.0_131
+export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$PATH:$JAVA_HOME/bin
+export JDK_HOME=/data/UnicomSMS/jdk1.8.0_131
+export JRE_HOME=/data/UnicomSMS/jdk1.8.0_131
+#Tomcat8
+export CLASSPATH=.:$CATALINA_HOME$/bin:$CATALNA_HOME$/commom/lib/servlet/jar
+export CATALINA_BASE=/data/UnicomSMS/Tomcat8
+export CATALINA_HOME=/data/UnicomSMS/Tomcat8
+export CATALINA_TMPDIR=/data/UnicomSMS/Tomcat8/temp
 source /etc/profile
 
-
+#KALI 
 #清华大学
 deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
 #中科大kali源
