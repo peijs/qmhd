@@ -1,0 +1,306 @@
+--先进入mysql目录
+cd mysql
+cd bin
+
+--安装MySQL服务
+mysqld --install mysql
+
+--开启服务
+net start mysql
+
+--关闭服务
+net stop mysql
+
+--移除服务
+mysqld --remove mysql
+
+--连接服务
+mysql -h202.0.0.1 -uroot -p (远程)
+mysql -hlocalhost -uroot -p (本机)
+mysql -uroot -p
+mysql -uroot
+
+--退出服务
+quit或exit
+
+--查看字符编码
+show variables like 'char%'
+
+--设置编码
+set character_set_database=utf8
+
+set character_set_client=utf8;
+set character_set_connection=utf8;
+set character_set_database=utf8;
+set character_set_filesystem=utf8;
+set character_set_results=utf8;
+set character_set_server=utf8;
+
+
+--查看mysql版本
+select version()
+
+--查询mysql用户信息
+select host,user,password from mysql.user
+
+--设置root账号的密码
+set password=password('123');
+set password=password('');
+
+--更换sql语句的结束符
+delimiter //
+
+--显示所有数据库
+show databases
+
+--切换某个数据库
+use student
+
+--显示所有表
+show tables
+
+--执行sql文件
+source c:\a.sql(注：后边不要分号！)
+
+--建库
+create database if not exists student default character set utf8
+--删库
+drop database if exists student
+--显示建库的标准语句
+show create database student
+--建一个特殊数据库
+create database `database` (SQL Server为:create database [database])
+--选择数据库
+use student
+
+--建表
+create table stuinfo
+(
+   id int primary key auto_increment,
+   sno varchar(10) not null unique
+);
+--显示建表的标准代码
+show create table stuinfo
+
+--MySql中常用的数值类型:
+->整型:bit、tinyint、smallint、int、bigint
+->浮点型:、decimal(7,2)表示7位数字，其中小数占2位、numeric(m,d)
+->日期:datetime、date(注：只有日期)、time(注：只有时间)、timestamp(可用default now())
+->字符串:char(n)-> 定长,varchar(n) -> 变长,text
+->二进制:blob
+
+--MySql数据库内置加密方式：
+->1.password('pwd');-----41位
+->2.md5('pwd');-----32位(已过时)
+->3.sha('pwd')或sha1('pwd');------40位
+例:
+select md5('123');
+select length(md5('123'));
+
+--修改表名（将t表改为teacher）
+rename table t to teacher
+
+--修改列名及数据类型（将t列改为id，数据类型设置为char）
+alter table teacher change t id char(10) 
+--修改列的数据类型（将a列改为varchar型）
+alter table teacher modify a vachar(10)
+注：change可同时修改列名和数据类型，modify只能修改数据类型。
+
+--增加列（在table列中增加age列，类型为tinyint）
+alter table teacher add age tinyint
+--同时增加多列
+alter table teacherinfo add(tname varchar(10),tage tinyint);
+
+--删除列
+alter table teacher drop age
+
+-设置主键 PK
+alter table teacher add constraint primary key(id)
+--删除主键
+alter table teacher drop primary key
+
+--查看表结构
+desc teacher
+
+--建立一个外键 FK
+alter table teacher add constraint foreign key(tid) references t(id);
+
+--建立唯一约束
+alter table teacher add [constraint] unique (name);
+
+--结果删除所有记录
+delete from student;（逐条删除，如果全部删除的话，效率有点慢）
+可以这样: delete from stuinfo where 1=1;(一下子全部删除)
+或
+truncate table student(注:使用truncate语句时不会引发触发器);
+
+--列别名
+select stuname 姓名 from student;  或
+select tname as '姓名' from teacherinfo;  或
+select tname as 姓名 from teacherinfo;
+
+--表别名
+select a.* from student a;
+
+--查询条件
+> < = >= <=  <> 和!=都是不等于
+between 1 and 20
+not between 1 and 20
+
+in (1,3,5)
+not  in (1,2)
+
+is null
+is not null
+
+''和null是不一样的。
+
+like 
+
+% 代表0-n任意字符
+_ 代表一个符号
+select * from student where stuname like ‘_ _ _ _’; 
+等价于
+select * from student where length(stuname)=4;
+
+--在MySql中,使用date型时,不能指定默认值,如果想要使用默认日期可以使用timestamp(时间戳)类型:
+create table aa(id int primary key auto_increment,a timestamp default now());
+
+--SQL中的常用内置函数:max()、min()、sum()、avg()、count()、length()、now()
+
+--select * from student where age = (select max(age) from student)
+--推荐使用:
+--select * from student where age in (select max(age) from student)
+
+--查询第一行记录
+select * from student order by age limit 0,1
+--随机
+select * from student order by rand() desc limit 0,3
+注：mysql中没有top语句;算平均年龄时，年龄为空的不参与平均。
+
+--不等查询
+select * from crm_user where account !='admin';
+或
+select * from crm_user where account <>'admin';
+
+--外键级联删除
+create database student default character set gbk;
+use student;
+create table stuinfo
+(
+   id int primary key auto_increment,
+   sno varchar(6) not null unique,
+   sname varchar(10) not null
+);
+create table couinfo
+(
+   id int primary key auto_increment,
+   cname varchar(20) not null unique
+);
+/* 建立联合主键 */
+/**
+create table scoinfo
+(
+   sid int not null,
+   cid int not null,
+   score tinyint default 0,
+   primary key(sid,cid),
+   foreign key(sid) references stuinfo(id) on delete cascade,
+   foreign key(cid) references couinfo(id) on delete cascade
+);
+**/
+create table scoinfo
+(
+   id int primary key auto_increment,
+   sid int not null,
+   cid int not null,
+   score tinyint default 0,
+   foreign key(sid) references stuinfo(id) on delete cascade,
+   foreign key(cid) references couinfo(id) on delete cascade
+);
+
+--创建视图
+create view showstu
+as
+select stuinfo.*,couinfo.cname,scoinfo.score
+from stuinfo,couinfo,scoinfo
+where stuinfo.id = scoinfo.sid and couinfo.id=scoinfo.cid
+或（利用表别名）
+create view stuinfo 
+as 
+select st.stuid,st.stuname,c.coursename,s.score 
+from student st,score s,course c 
+where st.stuid=s.stuid and c.courseid=s.courseid;
+
+--查询视图
+select * from showstu;
+
+--存储过程:存储过程的效率比查询语句要高得多。
+--删除存储过程
+drop procedure if exists st;
+drop procedure if exists stinsert;
+
+/*创建一个查询信息的存储过程，无参*/
+delimiter //
+create procedure allstu()
+begin
+   select * from stuinfo;
+end
+//
+delimiter ;
+--调用
+call allstu()
+
+/*创建添加学生的存储过程，输入参数*/
+delimiter //
+create procedure addstu(in xuehao varchar(6),in xingming varchar(10))
+begin 
+    insert into stuinfo(sno,sname) values(xuehao,xingming);
+end
+//
+
+/*执行存储过程*/
+call addstu('010','王强')
+
+/*创建一个统计数量的存储过程，输出参数*/
+delimiter //
+create procedure countstu(out c int)
+begin 
+    select count(*) from stuinfo;
+end
+//
+
+--执行
+call countstu(@a);
+
+--建立一个删除指定学号的存储过程
+delimiter //
+create procedure stdel(in sno char(4))
+begin
+    delete from student where stuid=sno;
+end
+//
+
+
+--触发器:使用触发器时，系统会自动产生两个临时表，分别是NEW表和OLD表
+--     触发器类型      new表    old表
+--     insert          yes      no
+--     update          yes      yes
+--     delete          no       yes
+
+--创建一个insert触发器
+create trigger stut after insert
+on stuinfo for each row
+begin
+    if NEW.stuage<20 then
+        insert into st18 values(NEW.stuid,NEW.stuname,NEW.stuage);
+    end if;
+    insert into score(stuid,courseid) values(NEW.stuid,'K001');
+    insert into score(stuid,courseid) values(NEW.stuid,'K002');
+    insert into score(stuid,courseid) values(NEW.stuid,'K003');
+    insert into score(stuid,courseid) values(NEW.stuid,'K004');
+    insert into score(stuid,courseid) values(NEW.stuid,'K005');
+end
+//
+
+

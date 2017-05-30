@@ -1,0 +1,283 @@
+--建立数据库
+create database 数据库名;
+--标准语句为
+create database if not exists huasoft character set gb2312;
+注：使用这条语句的时候如果已经有了这个数据库，那么将不会再创建库了，不会覆盖。
+--删除数据库
+drop database 数据库名子;
+--显示建立数据库的标准代码
+show create database 数据库名;
+--建立特殊数据库
+create database `database`;
+--下边是sqlserver语句
+create database [database];
+--选择数据库
+use huasoft;
+--建立表
+create table student
+(
+    id int,
+    name varchar(30),
+    address varchar(100),
+    primary key(id)
+);
+--显示建表的规范代码
+show create table student;
+
+数值类型
+整型
+bit[(M)] 
+tinyint[(M)]
+bool,boolean = tinyint(1)
+smallint[(m)] 
+mediumint[(m)]
+int[(m)] = integer[(m)]
+bigint[(m)] 
+注：括号中的m并不代表可以存储数值的大小，只代表显示宽度，最好不要随意设置。
+
+小数类型（高精度）：
+decimal(m,d)
+numeric(m,d)
+例:decimal(7,2)表示7位数字，其中小数占2位。
+
+日期
+datetime
+date --> 只包括日期，不包括时间；
+time
+timestamp
+
+二进制
+blob
+
+字符串类型
+char(m) 定长 m代表字节数  一个汉字占两个字节  
+varchar(m)  m代表字节数
+text
+char(10)与varchar(10)的区别：它们两个都是最多能存10个字节，但是char(10)是定长，如果都只存1个字节的话，
+                             char(10)仍然占10个字节，而varchar(10)则只占1个字节。
+
+
+--修改表名（将t表改为teacher）
+rename table t to teacher
+
+--修改列名及数据类型（将t列改为id，数据类型设置为char）
+alter table teacher change t id char(10) 
+--修改列的数据类型（将a列改为varchar型）
+alter table teacher modify a vachar(10)
+注：change可同时修改列名和数据类型，modify只能修改数据类型。
+
+--增加列（在table列中增加age列，类型为tinyint）
+Alter table teacher add age tinyint
+--同时增加多列
+alter table teacherinfo add(tname varchar(10),tage tinyint);
+
+--删除列
+Alter table teacher drop age
+-
+-设置主键 PK
+Alter table teacher add constraint primary key(id)
+--删除主键
+Alter table teacher drop primary key
+
+--查看表结构
+Desc teacher
+
+/*建立老师职称表，id为主键，且自增*/
+create table t(
+    id     int auto_increment primary key,
+    name   varchar(10)
+);
+
+--建立一个外键 FK
+alter table teacher add constraint foreign key(tid) references t(id);
+
+--建立唯一约束
+ alter table teacher add [constraint] unique (name);
+ 
+--结果删除所有记录
+delete from student;   （逐条删除，如果全部删除的话，效率有点慢）
+可以这样: delete from stuinfo where 1=1;(一下子全部删除)
+或
+truncate table student;
+
+insert into  增
+delete     删
+update     改
+select     查
+
+--查询语句
+--列别名
+select stuname 姓名 from student;
+或
+select tname as '姓名' from teacherinfo;
+或
+select tname as 姓名 from teacherinfo;
+
+--表别名
+select a.* from student a;
+
+--查询条件
+> < = >= <=  <> 和!=都是不等于
+between 1 and 20
+not between 1 and 20
+
+in (1,3,5)
+not  in (1,2)
+
+is null
+is not null
+
+''和null是不一样的。
+
+like 
+
+% 代表0-n任意字符
+_ 代表一个符号
+Select * from student where stuname like ‘_ _ _ _’
+Select * from student where length(stuname)=4;
+
+在MySql中，使用date型时，不能指定默认值：
+--这是错误的
+CREATE TABLE aa(a1 DATE DEFAULT NOW(),a2 VARCHAR(6))
+--这是正确的
+CREATE TABLE aa(a1 DATE,a2 VARCHAR(6))
+INSERT INTO aa VALUES('2011-3-11 15:08:33','张三')
+--想要使用默认日期的话
+CREATE TABLE aa(a1 TIMESTAMP DEFAULT NOW(),a2 VARCHAR(10))
+--插入时，不进行设置，查出来的就是当时的时间
+INSERT INTO aa(a2) VALUES('张三')
+/* SQL中的常用内置函数
+max()
+min()
+sum()
+avg()
+count()
+*/
+SELECT * FROM student WHERE age=(SELECT MAX(age) FROM student)
+推荐使用:
+SELECT * FROM student WHERE age in (SELECT MAX(age) FROM student)
+--查询第一行记录
+SELECT * FROM studnet ORDER BY age LIMIT 0,1
+SELECT * FROM aa ORDER BY a1 DESC  LIMIT 0,3
+SELECT * FROM aa ORDER BY RAND() DESC LIMIT 0,3
+注：mysql中没有top语句。
+    算平均年龄时，年龄为空的不参与平均。
+
+视图：虚拟表，可简化代码
+视图会降低效率（比查询语句效率低），有些大型数据库不建议使用视图。
+
+查询学生的学号，姓名 课程 及成绩。
+--创建视图
+CREATE VIEW stuinfo
+AS
+SELECT student.*,course.cName,score.score 
+FROM student,course,score
+WHERE student.sNum=score.sNum AND course.cID=score.cID
+或（利用表别名）
+create view stuinfo 
+as 
+select st.stuid,st.stuname,c.coursename,s.score 
+from student st,score s,course c 
+where st.stuid=s.stuid and c.courseid=s.courseid;
+
+--查询视图
+select * from stuinfo;
+
+存储过程：
+存储过程的效率比查询语句要高得多。
+
+--删除存储过程
+drop procedure if exists st;
+drop procedure if exists stinsert;
+
+/*创建一个查询信息的存储过程，无参*/
+DELIMITER //
+CREATE PROCEDURE allstu()
+BEGIN 
+   SELECT * FROM stuinfo;
+END
+//
+--调用
+CALL allstu()
+
+/*创建添加学生的存储过程，输入参数*/
+DELIMITER //
+CREATE PROCEDURE addstu(IN num VARCHAR(6),IN nam VARCHAR(6))
+BEGIN
+    INSERT INTO student(snum,sname) VALUES(num,nam);
+END
+//
+
+/*执行存储过程*/
+CALL addstu('010','王强')
+
+/*创建一个统计数量的存储过程，输出参数*/
+DELIMITER //
+CREATE PROCEDURE countstu(OUT c INT)
+BEGIN
+   SELECT COUNT(*) FROM student;
+END
+//
+CALL countstu(@a);
+
+--建立一个删除指定学号的存储过程
+create procedure stdel(in sno char(4))
+begin
+    delete from student where stuid=sno;
+end
+//
+
+
+触发器
+--使用触发器时，系统会自动产生两个临时表，分别是NEW和 OLD
+--     触发器类型    new   old
+--     insert          yes    no
+--     update         yes    yes
+--     delete          no    yes
+
+create trigger stut after insert
+on student for each row
+begin
+    if NEW.stuage<20 then
+        insert into st18 values(NEW.stuid,NEW.stuname,NEW.stuage);
+    end if;
+    insert into score(stuid,courseid) values(NEW.stuid,'K001');
+    insert into score(stuid,courseid) values(NEW.stuid,'K002');
+    insert into score(stuid,courseid) values(NEW.stuid,'K003');
+    insert into score(stuid,courseid) values(NEW.stuid,'K004');
+    insert into score(stuid,courseid) values(NEW.stuid,'K005');
+end
+//
+
+
+DELIMITER //
+CREATE TRIGGER trig_before_delete_user BEFORE DELETE ON sys_user FOR EACH ROW
+BEGIN
+    /*删除该用户信息*/
+    DELETE FROM sys_user_info WHERE yhbh = old.yhbh;
+    /*删除用户的角色*/
+    DELETE FROM sys_user_role WHERE yhbh = old.yhbh;
+    /*删除用户关联的卡片记录*/
+    DELETE FROM mx_kpjl WHERE yhbh = old.yhbh;
+    /*删除用户关联的交易记录*/
+    DELETE FROM mx_jyjl WHERE yhbh = old.yhbh;
+    /*删除用户关联的提现记录*/
+    DELETE FROM mx_txjl WHERE yhbh = old.yhbh;
+    /*删除用户关联的还款记录*/
+    DELETE FROM mx_hkjl WHERE yhbh = old.yhbh;
+    /*删除用户关联的时光轴*/
+    DELETE FROM mx_sgz WHERE yhbh = old.yhbh;
+END
+//   
+DELIMITER ;
+
+删除数据的两种方式：
+truncate 是操作全部，不会启动触发器
+delete  是逐条操作，会启动触发器
+
+MySql数据库的加密算法：
+ 1) select password('admin');
+ 2) select md5('admin');
+ 3) select sha('admin');或select sha1('admin');
+
+

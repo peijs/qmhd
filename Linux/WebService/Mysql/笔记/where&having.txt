@@ -1,0 +1,62 @@
+WHERE与HAVING:
+
+1.WHERE 子句作用于表和视图，HAVING 子句作用于组(group)。
+
+2.WHERE 在分组和聚集计算之前选取输入行（因此，它控制哪些行进入聚集计算），而HAVING 在分组和聚集
+之后选取分组的行。因此，WHERE 子句不能包含聚集函数；因为试图用聚集函数判断哪些行输入给聚集运算是
+没有意义的。相反，HAVING 子句总是包含聚集函数。（严格说来，你可以写不使用聚集的 HAVING 子句，但
+这样做只是白费劲。同样的条件可以更有效地用于 WHERE 阶段。） 
+
+例:
+数据表:t_student
+
+表结构: 
+CREATE TABLE `t_student` (
+  `id` int(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(25) DEFAULT NULL COMMENT '姓名',
+  `major` varchar(25) DEFAULT NULL COMMENT '专业',
+  `score` int(20) DEFAULT NULL COMMENT '学分',
+  `sex` varchar(20) DEFAULT NULL COMMENT '性别',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+表数据： 
++----+------+---------+-------+------+
+| id | name | major   | score | sex  |
++----+------+---------+-------+------+
+|  1 | jak  | Chinese |    40 | f    |
+|  2 | rain | Math    |    89 | m    |
+|  3 | leo  | Phy     |    78 | f    |
+|  4 | jak  | Math    |    76 | f    |
+|  5 | rain | Chinese |    56 | m    |
+|  6 | leo  | Math    |    97 | f    |
+|  7 | jak  | Phy     |    45 | f    |
+|  8 | jak  | Draw    |    87 | f    |
+|  9 | leo  | Chinese |    45 | f    |
++----+------+---------+-------+------+
+
+要求查询性别为男生，并且列出每个学生的总成绩：
+select s.*, sum(s.score) from t_student s where sex='f' group by s.name;
+
+结果：
++----+------+---------+-------+------+--------------+
+| id | name | major   | score | sex  | sum(s.score) |
++----+------+---------+-------+------+--------------+
+|  1 | jak  | Chinese |    40 | f    |          248 |
+|  3 | leo  | Phy     |    78 | f    |          220 |
++----+------+---------+-------+------+--------------+
+
+只显示总分数大于230的学生：
+select s.*,sum(s.score) from t_student s where sex='f' group by s.name having sum(s.score)>230;
+
+结果：
++----+------+---------+-------+------+--------------+
+| id | name | major   | score | sex  | sum(s.score) |
++----+------+---------+-------+------+--------------+
+|  1 | jak  | Chinese |    40 | f    |          248 |
++----+------+---------+-------+------+--------------+
+
+结论： 
+1.WHERE 子句用来筛选 FROM 子句中指定的操作所产生的行。 
+2.GROUP BY 子句用来分组 WHERE 子句的输出。 
+3.HAVING 子句用来从分组的结果中筛选行。

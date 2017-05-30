@@ -1,0 +1,127 @@
+MYSQL常用命令 
+
+--------------------------------------导入导出--------------------------------------
+1.导出整个数据库(进到bin目录)
+mysqldump -u 用户名 -p --default-character-set=latin1 数据库名 > 导出的文件名(数据库默认编码是latin1)
+mysqldump -hlocalhost -uroot -p123 --default-character-set=utf8 cms>d:\cms.sql
+
+2.导出一个表
+mysqldump -u 用户名 -p 数据库名 表名 > 导出的文件名
+mysqldump -uroot -p123 cms book > d:\book.sql
+
+3.导出一个数据库结构
+mysqldump -u 用户名 -p -d --add-drop-table 数据库名 > d:wcnc_db.sql
+(注： -d 没有数据 
+      --add-drop-table 在每个create语句之前增加一个drop table)
+mysqldump -uroot -p123 -d --add-drop-table cms>d:\aaa.sql
+
+4.导入数据库
+   A:常用source 命令(进入mysql数据库控制台)
+     mysql -uroot -p123
+     mysql>use cms
+     mysql>source d:\cms.sql 
+
+   B:使用mysqldump命令 
+   mysqldump -u username -p dbname < filename.sql 
+   mysqldump -uroot -p123 cms<d:\cms.sql
+
+   C:使用mysql命令 
+   mysql -u username -p -D dbname < filename.sql
+   mysql -uroot -p123 -D cms<d:\cms.sql('-D'必须要大写)
+
+5.导入文本数据
+mysql>load data local infile 'd:\a.txt' into table book;
+(注意:
+文本数据应符合一定的格式,字段数据之间用tab键隔开，null值用\n来代替。
+例：
+3 rose 大连二中 1976-10-10
+4 mike 大连一中 1975-12-23)
+
+--------------------------------------安装/卸载/开启/停止/连接/退出 服务-----------
+1.安装MySQL服务
+mysqld --install mysql
+
+2.开启服务
+net start mysql
+
+3.关闭服务
+net stop mysql
+
+4.移除服务
+mysqld --remove mysql
+
+5.连接服务
+mysql -h主机地址 -u用户名 －p用户密码
+mysql -h202.0.0.1 -uroot -p (远程)
+mysql -h10.65.9.188 -P3360 -uroot -proot (在端口号不一样的情况下，P必须大写)
+mysql -hlocalhost -uroot -p (本机)
+mysql -uroot -p
+mysql -uroot
+
+6.退出服务
+quit或exit
+
+--------------------------------------添加/修改 密码---------------------------
+1.给root加个密码123
+mysqladmin -u root -password 123 
+mysqladmin -u root password 123
+
+2.将root的密码改为abc。
+mysqladmin -u用户名 -p旧密码 password 新密码 
+   A: mysqladmin -u root -p 123 password abc
+
+   B: mysql>update mysql.user set password=password('123') where user='ydp';
+
+--------------------------------------添加 用户--------------------------------
+mysql>grant all privileges on *.* to ydp@localhost identified by '123';
+
+--------------------------------------库操作------------------------------------
+1.创建数据库
+mysql> create database cms; 
+mysql> create database if not exists cms default character set utf8; 
+
+2.显示所有的数据库
+mysql> show databases;
+
+3、删除数据库
+mysql> drop database if exists cms;
+
+4.连接数据库
+mysql> use cms;
+
+5.查看当前使用的数据库
+mysql> select database(); 
+
+6.当前数据库包含的表信息：
+mysql> show tables;
+
+--------------------------------------表操作------------------------------------
+
+1.建表
+命令：create table <表名> ( <字段名1> <类型1> [,..<字段名n> <类型n>]); 
+mysql>
+
+2.获取表结构
+mysql>DESCRIBE MyClass
+mysql> desc MyClass; 
+mysql> show columns from tablename;
+
+3.删除表
+mysql> drop table tablename;
+
+4.插入数据
+insert into <表名> [( <字段名1>[,..<字段名n > ])] values ( 值1 )[, ( 值n )]
+mysql> insert into MyClass values(1,'Tom',96.45),(2,'Joan',82.99), (2,'Wang', 96.59);
+
+5.查询表中的数据
+
+6.删除表中数据
+
+7.修改表中数据：
+mysql> 
+
+7.在表中增加字段： 
+mysql> alter table tb_book add age int(4) default 0
+
+8.更改表名：
+mysql> rename table oldname to newname; 

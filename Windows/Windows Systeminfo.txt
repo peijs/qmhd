@@ -1,0 +1,59 @@
+msconfig		--系统配置
+winver.exe		--显示windows版本信息
+nslookup		--域名解析
+WF.msc			--高防级安全windows 防火墙
+firewall.cpl		--防火墙控制台
+gpedit.msc		--打开组策略
+fsmgmt.msc 		--共享文件夹
+devmgmt.msc		--设备管理器 
+comexp.msc 		--组件服务
+control.exe		--控制面板
+taskschd.msc		--任务计划程序
+perfmon.msc		--性能监视器
+eventvwr.msc		--事件查看器
+diskmgmt.msc		--磁盘管理
+compmgmt.msc 		--计算机管理
+services.msc		--本地服务设置 
+Dxdiag.exe		--查看电脑的硬件配置情况
+msinfo32.exe		--系统信息
+secpol.msc 		--本地安全策略
+calc			--启动计算器
+ncpa.cpl		--网络连接
+intl.cpl 		--区域
+telephon.cpl		--区域位置信息
+hdwwiz.cpl 		--设备管理器
+collab.cpl 		--网上邻居
+wscui.cpl 		--操作中心
+sysdm.cpl 		--计算机属性
+timedate.cpl		--日期时间
+appwiz.cpl		--添加删除程序 
+mstsc			--远程桌面连接 
+lusrmgr.msc		--用户组管理
+SnippingTool		--截图工具
+mspaint   		--画图板   
+StikyNot		--便签
+notepad   		--记事本
+desk.cpl		--屏幕分辨率
+powercfg.cpl		--电源选项
+mmsys.cpl 		--声音
+inetcpl.cpl		--Internet属性
+taskmgr 		--任务管理器
+winver 			--系统信息
+control.cpl		--控制面板
+osk 			--虚拟机键盘
+
+
+
+ipconfig -release 释放网卡
+ipconfig -renew   重启网卡
+convert e: /fs:ntfs --不丢失文件进行磁盘格式转换
+rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0桌面图标设置
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+
+
+
+server-id=1
+log-bin=mysql-bin
+read-only=0
+binlog-do-db=phpcmsv9
+binlog-ignore-db=mysql
+
+show master status \G;
+
+grant replication slave, reload, super on *.* to 'backup'@'192.168.10.198' identified by '123';
+
+
+1、主从服务器分别作以下操作：
+  1.1、版本一致
+  1.2、初始化表，并在后台启动mysql
+  1.3、修改root的密码
+
+2、修改主服务器master:
+   #vi /etc/my.cnf
+       [mysqld]
+       log-bin=mysql-bin   //[必须]启用二进制日志
+       server-id=222       //[必须]服务器唯一ID，默认是1，一般取IP最后一段
+
+3、修改从服务器slave:
+   #vi /etc/my.cnf
+       [mysqld]
+       log-bin=mysql-bin   //[必须]启用二进制日志
+       server-id=226       //[必须]服务器唯一ID，默认是1，一般取IP最后一段
+
+4、重启两台服务器的mysql
+   /etc/init.d/mysql restart
+
+5、在主服务器上建立帐户并授权slave:
+   #/usr/local/mysql/bin/mysql -uroot -pmttang   
+   mysql>GRANT REPLICATION SLAVE ON *.* to 'mysync'@'%' identified by 'q123456'; 
+   //一般不用root帐号，“%”表示所有客户端都可能连，只要帐号，密码正确，
+   此处可用具体客户端IP代替，如192.168.145.226，加强安全。
+
+---------------------------------------------------------------------------------------
+1、登录Master服务器,修改my.cnf,添加如下内容； 
+server-id = 1 //数据库ID号， 为1时表示为Master,其中master_id必须为1到232–1之间的一个正整数值; 
+log-bin=mysql-bin //启用二进制日志； 
+binlog-do-db=data //需要同步的二进制数据库名； 
+binlog-ignore-db=mysql //不同步的二进制数据库名;这个同步后听说很麻烦，我没有同步； 
+log-bin=/var/log/mysql/updatelog //设定生成的log文件名； 
+log-slave-updates //把更新的记录写到二进制文件中； 
+slave-skip-errors //跳过错误，继续执行复制； 
+
+2、建立复制所要使用的用户； 
+mysql>grant replication slave on *.* to test@192.168.0.2 identified by '********' 
+
+3、重启mysql; 
+/usr/bin/mysqladmin -uroot shutdown; 
+/usr/bin/mysql_safe &
+
+4、登录Slave数据库服务器，修改my.cnf; 
+server-id = 3 //2已经被用在另一个服务器上了，如果以后要再加Slave号接着往后数就OK了； 
+log-bin=mysql-bin 
+master-host = 192.168.0.1 
+master-user = test 
+master-password = ****** 
+master-port = 3306 
+master-connect-retry=60 //如果发现主服务器断线，重新连接的时间差； 
+replicate-ignore-db=mysql //不需要备份的数据库； 
+replicate-do-db=data //需要备份的数据库 
+log-slave-update 
+slave-skip-errors 
+
+5、上述完成后，可以启动slave了；查看slave状态； 
+mysql>slave start; 
+mysql>show slave status\G; 
+
+查看Master上面的状态； 
+mysql> show master status; 
+
