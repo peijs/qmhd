@@ -340,5 +340,6 @@ deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
 #阿里云kali源
 deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
 
-
+#图形界面配置网络
+nmtui
 
