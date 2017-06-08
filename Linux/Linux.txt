@@ -326,7 +326,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 export JDK_HOME=/data/UnicomSMS/jdk1.8.0_131
 export JRE_HOME=/data/UnicomSMS/jdk1.8.0_131
 #Tomcat8
-export CLASSPATH=.:$CATALINA_HOME$/bin:$CATALNA_HOME$/commom/lib/servlet/jar
+export CLASSPATH=.:$CATALINA_HOME$/bin/bootstrap.jar:$CATALNA_HOME$/bin/tomcat-juli.jar
 export CATALINA_BASE=/data/UnicomSMS/Tomcat8
 export CATALINA_HOME=/data/UnicomSMS/Tomcat8
 export CATALINA_TMPDIR=/data/UnicomSMS/Tomcat8/temp
@@ -379,7 +379,7 @@ proxy=http://username:password@proxy_ip:port/
 
 Wget的代理设置  
 编辑/etc/wgetrc，在最后加入  
-# Proxy  
+#Proxy  
 http_proxy=http://username:password@proxy_ip:port/  
 ftp_proxy=http://username:password@proxy_ip:port/  
 
@@ -392,4 +392,8 @@ export ALL_PROXY=socks://192.168.1.1:3128/
 export HTTPS_PROXY=http://192.168.1.1:3128/  
 export https_proxy=http://192.168.1.1:3128/  
 export HTTP_PROXY=http://192.168.1.1:3128/  
-export no_proxy=localhost,127.0.0.1,192.168.0.0 
+export no_proxy=localhost,127.0.0.1,192.168.0.0
+
+
+
+
