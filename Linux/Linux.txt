@@ -312,7 +312,7 @@ airmon-ng start wlan0
 airodump-ng  wlan0mon
 airodump-ng -c 11  --bssid D8:24:BD:78:2C:B8 -w /usr/local/ wlan0mon
 mdk3 wlan0mon a -a 5C:63:BF:46:49:A0 -c 2000
-macof -i eht0
+macof -i eth0
 yersinia -G
 
 

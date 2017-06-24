@@ -50,8 +50,7 @@ ipconfig -renew   重启网卡
 convert e: /fs:ntfs --不丢失文件进行磁盘格式转换
 rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0桌面图标设置
 
-
-
+wmic  cpu get *
 
 
 
