@@ -42,6 +42,7 @@ taskmgr 		--任务管理器
 winver 			--系统信息
 control.cpl		--控制面板
 osk 			--虚拟机键盘
+wuapp.exe		--Windows Update
 
 
 
