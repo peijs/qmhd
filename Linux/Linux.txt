@@ -396,4 +396,27 @@ export no_proxy=localhost,127.0.0.1,192.168.0.0
 leafpad /etc/proxychains.conf
 proxychains nmap -p1-65535 -T4 -sT xxx.xxx.xx.x
 
+#查看linux相关性能
+
+echo [PID]  [MEM]  [PATH] &&  ps aux | awk '{print $2, $4, $11}' | sort -k2rn | head -n 20
+ps -eo pcpu,pid,user,args | sort -k 1 -r | head -20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
