@@ -249,12 +249,16 @@ hdparm -i /dev/sda
 
 #关闭系统Selinux
 [root@localhost ~]/usr/sbin/setenforce 0  #临时关闭
+[root@localhost ~]/usr/sbin/setenforce 1  #临时开启
 [root@localhost ~]# vi /etc/selinux/config
 #SELINUX=enforcing
 SELINUX=disabled
 #重启机器，查看selinux状态
 [root@localhost ~]# sestatus
 SELinux status:                 disabled
+
+永久性关闭（这样需要重启服务器后生效）
+# sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 
 #关闭Firewalld
 
@@ -402,13 +406,10 @@ echo [PID]  [MEM]  [PATH] &&  ps aux | awk '{print $2, $4, $11}' | sort -k2rn | 
 ps -eo pcpu,pid,user,args | sort -k 1 -r | head -20
 
 
+69472495
 
 
-
-
-
-
-
+13633296828
 
 
 

@@ -16,7 +16,6 @@ diskmgmt.msc		--磁盘管理
 compmgmt.msc 		--计算机管理
 services.msc		--本地服务设置 
 Dxdiag.exe		--查看电脑的硬件配置情况
-msinfo32.exe		--系统信息
 secpol.msc 		--本地安全策略
 calc			--启动计算器
 ncpa.cpl		--网络连接
