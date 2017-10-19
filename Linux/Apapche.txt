@@ -1,0 +1,66 @@
+Apache 配置可以浏览根目录下的文件。并设置权限访问
+
+#密码设置
+
+mCV1AGEPa7YcGno
+
+#配置密码
+
+cd /usr/local/apache/bin
+htpasswd -c /usr/local/apache/passwords
+
+#在根补录下创建.htaccess文本
+vim /home/oto/files/records/.htaccess
+
+AuthType Basic
+AuthName "records"
+AuthUserFile "/usr/local/apache/passwords"
+Require user qmhd
+~                     
+
+#虚拟主机设置
+
+Apache 2.4
+
+Listen 8080
+
+<VirtualHost *:8080>
+ServerName localhost
+DocumentRoot /home/oto/files/records/
+DirectoryIndex index.html index.htm
+<Directory /home/oto/files/records/>
+Options Indexes
+AllowOverride AuthConfig
+#AllowOverride None 关闭验证
+Require all granted
+</Directory>
+</VirtualHost>
+
+
+
+Aapache 2.2
+
+Listen 8010
+
+<VirtualHost *:8010>
+ServerName localhost
+DocumentRoot /ewomail/www/ewomail-admin/
+DirectoryIndex index.php index.html index.htm
+<Directory /ewomail/www/ewomail-admin/>
+Options +Includes -Indexes
+AllowOverride All
+Order Deny,Allow
+Allow from All
+</Directory>
+</VirtualHost>
+
+
+
+}"Q^bz=%L:
+
+
+
+
+}"Q^bz=%L:
+
+

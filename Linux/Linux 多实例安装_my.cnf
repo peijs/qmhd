@@ -1,0 +1,55 @@
+[mysql]
+
+socket=/tmp/mysql1.sock
+
+
+[mysqld_multi]
+mysqld     = /usr/local/Mysql/bin/mysqld_safe
+mysqladmin = /usr/local/Mysql/bin/mysqladmin
+user       = root
+
+
+
+[mysqld1]
+port=3306
+basedir=/usr/local/Mysql
+datadir=/data/UnicomSMS/data1
+#socket=/data/UnicomSMS/data1/mysql.sock
+socket=/tmp/mysql1.sock
+pid-file=/data/UnicomSMS/data1/hostname.pid
+user=root
+
+server-id=6987080
+log_bin=/data/UnicomSMS/data1/mysql-bin
+log_error=/data/UnicomSMS/data1/mysql-bin.err
+binlog_ignore_db=hd_lsms
+
+[mysqld2]
+port=3307
+basedir=/usr/local/Mysql
+datadir=/data/UnicomSMS/data2
+#socket=/data/UnicomSMS/data2/mysql.sock
+socket=/tmp/mysql2.sock
+pid-file=/data/UnicomSMS/data2/hostname.pid
+user=root
+server-id=1489743709
+log_error=/data/UnicomSMS/data2/mysql-bin.err
+
+
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+#symbolic-links=0
+# Settings user and group are ignored when systemd is used.
+# If you need to run mysqld under a different user or group,
+# customize your systemd unit file for mariadb according to the
+# instructions in http://fedoraproject.org/wiki/Systemd
+
+[mysqld_safe]
+#log-error=/var/log/mariadb/mariadb.log
+#pid-file=/var/run/mariadb/mariadb.pid
+
+#
+# include all files from the config directory
+#
+#!includedir /etc/my.cnf.d
+
