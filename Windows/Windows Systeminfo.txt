@@ -1,54 +1,54 @@
-msconfig		--ÏµÍ³ÅäÖÃ¡£
-msinfo32		--ÏµÍ³ĞÅÏ¢
-winver.exe		--ÏÔÊ¾windows°æ±¾ĞÅÏ¢
-nslookup		--ÓòÃû½âÎö
-WF.msc			--¸ß·À¼¶°²È«windows ·À»ğÇ½
-firewall.cpl		--·À»ğÇ½¿ØÖÆÌ¨
-gpedit.msc		--´ò¿ª×é²ßÂÔ
-fsmgmt.msc 		--¹²ÏíÎÄ¼ş¼Ğ
-devmgmt.msc		--Éè±¸¹ÜÀíÆ÷ 
-comexp.msc 		--×é¼ş·şÎñ
-control.exe		--¿ØÖÆÃæ°å
-taskschd.msc		--ÈÎÎñ¼Æ»®³ÌĞò
-perfmon.msc		--ĞÔÄÜ¼àÊÓÆ÷
-eventvwr.msc		--ÊÂ¼ş²é¿´Æ÷
-diskmgmt.msc		--´ÅÅÌ¹ÜÀí
-compmgmt.msc 		--¼ÆËã»ú¹ÜÀí
-services.msc		--±¾µØ·şÎñÉèÖÃ 
-Dxdiag.exe		--²é¿´µçÄÔµÄÓ²¼şÅäÖÃÇé¿ö
-secpol.msc 		--±¾µØ°²È«²ßÂÔ
-calc			--Æô¶¯¼ÆËãÆ÷
-ncpa.cpl		--ÍøÂçÁ¬½Ó
-intl.cpl 		--ÇøÓò
-telephon.cpl		--ÇøÓòÎ»ÖÃĞÅÏ¢
-hdwwiz.cpl 		--Éè±¸¹ÜÀíÆ÷
-collab.cpl 		--ÍøÉÏÁÚ¾Ó
-wscui.cpl 		--²Ù×÷ÖĞĞÄ
-sysdm.cpl 		--¼ÆËã»úÊôĞÔ
-timedate.cpl		--ÈÕÆÚÊ±¼ä
-appwiz.cpl		--Ìí¼ÓÉ¾³ı³ÌĞò 
-mstsc			--Ô¶³Ì×ÀÃæÁ¬½Ó 
-lusrmgr.msc		--ÓÃ»§×é¹ÜÀí
-SnippingTool		--½ØÍ¼¹¤¾ß
-mspaint   		--»­Í¼°å   
-StikyNot		--±ãÇ©
-notepad   		--¼ÇÊÂ±¾
-desk.cpl		--ÆÁÄ»·Ö±æÂÊ
-powercfg.cpl		--µçÔ´Ñ¡Ïî
-mmsys.cpl 		--ÉùÒô
-inetcpl.cpl		--InternetÊôĞÔ
-taskmgr 		--ÈÎÎñ¹ÜÀíÆ÷
-winver 			--ÏµÍ³ĞÅÏ¢
-control.cpl		--¿ØÖÆÃæ°å
-osk 			--ĞéÄâ»ú¼üÅÌ
+msconfig		--ç³»ç»Ÿé…ç½®
+msinfo32		--ç³»ç»Ÿä¿¡æ¯
+winver.exe		--æ˜¾ç¤ºwindowsç‰ˆæœ¬ä¿¡æ¯
+nslookup		--åŸŸåè§£æ
+WF.msc			--é«˜é˜²çº§å®‰å…¨windows é˜²ç«å¢™
+firewall.cpl		--é˜²ç«å¢™æ§åˆ¶å°
+gpedit.msc		--æ‰“å¼€ç»„ç­–ç•¥
+fsmgmt.msc 		--å…±äº«æ–‡ä»¶å¤¹
+devmgmt.msc		--è®¾å¤‡ç®¡ç†å™¨ 
+comexp.msc 		--ç»„ä»¶æœåŠ¡
+control.exe		--æ§åˆ¶é¢æ¿
+taskschd.msc		--ä»»åŠ¡è®¡åˆ’ç¨‹åº
+perfmon.msc		--æ€§èƒ½ç›‘è§†å™¨
+eventvwr.msc		--äº‹ä»¶æŸ¥çœ‹å™¨
+diskmgmt.msc		--ç£ç›˜ç®¡ç†
+compmgmt.msc 		--è®¡ç®—æœºç®¡ç†
+services.msc		--æœ¬åœ°æœåŠ¡è®¾ç½® 
+Dxdiag.exe		--æŸ¥çœ‹ç”µè„‘çš„ç¡¬ä»¶é…ç½®æƒ…å†µ
+secpol.msc 		--æœ¬åœ°å®‰å…¨ç­–ç•¥
+calc			--å¯åŠ¨è®¡ç®—å™¨
+ncpa.cpl		--ç½‘ç»œè¿æ¥
+intl.cpl 		--åŒºåŸŸ
+telephon.cpl		--åŒºåŸŸä½ç½®ä¿¡æ¯
+hdwwiz.cpl 		--è®¾å¤‡ç®¡ç†å™¨
+collab.cpl 		--ç½‘ä¸Šé‚»å±…
+wscui.cpl 		--æ“ä½œä¸­å¿ƒ
+sysdm.cpl 		--è®¡ç®—æœºå±æ€§
+timedate.cpl		--æ—¥æœŸæ—¶é—´
+appwiz.cpl		--æ·»åŠ åˆ é™¤ç¨‹åº 
+mstsc			--è¿œç¨‹æ¡Œé¢è¿æ¥ 
+lusrmgr.msc		--ç”¨æˆ·ç»„ç®¡ç†
+SnippingTool		--æˆªå›¾å·¥å…·
+mspaint   		--ç”»å›¾æ¿   
+StikyNot		--ä¾¿ç­¾
+notepad   		--è®°äº‹æœ¬
+desk.cpl		--å±å¹•åˆ†è¾¨ç‡
+powercfg.cpl		--ç”µæºé€‰é¡¹
+mmsys.cpl 		--å£°éŸ³
+inetcpl.cpl		--Internetå±æ€§
+taskmgr 		--ä»»åŠ¡ç®¡ç†å™¨
+winver 			--ç³»ç»Ÿä¿¡æ¯
+control.cpl		--æ§åˆ¶é¢æ¿
+osk 			--è™šæ‹Ÿæœºé”®ç›˜
 wuapp.exe		--Windows Update
 
 
 
-ipconfig -release ÊÍ·ÅÍø¿¨
-ipconfig -renew   ÖØÆôÍø¿¨
-convert e: /fs:ntfs --²»¶ªÊ§ÎÄ¼ş½øĞĞ´ÅÅÌ¸ñÊ½×ª»»
-rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0×ÀÃæÍ¼±êÉèÖÃ
+ipconfig -release é‡Šæ”¾ç½‘å¡
+ipconfig -renew   é‡å¯ç½‘å¡
+convert e: /fs:ntfs --ä¸ä¸¢å¤±æ–‡ä»¶è¿›è¡Œç£ç›˜æ ¼å¼è½¬æ¢
+rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0æ¡Œé¢å›¾æ ‡è®¾ç½®
 
 wmic  cpu get *
 
