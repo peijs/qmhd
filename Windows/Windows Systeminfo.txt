@@ -1,4 +1,4 @@
-msconfig		--系统配置
+msconfig		--系统配置。
 msinfo32		--系统信息
 winver.exe		--显示windows版本信息
 nslookup		--域名解析
