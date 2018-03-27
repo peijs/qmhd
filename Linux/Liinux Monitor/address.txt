@@ -1,0 +1,2 @@
+https://github.com/splincode/system-monitor
+https://github.com/basiljose1/cpu_usage
