@@ -1,3 +1,4 @@
+﻿eventvwr.msc		--事件日志
 msconfig		--系统配置
 msinfo32		--系统信息
 winver.exe		--显示windows版本信息
@@ -42,6 +43,7 @@ winver 			--系统信息
 control.cpl		--控制面板
 osk 			--虚拟机键盘
 wuapp.exe		--Windows Update
+sysprep			--系统初始工具
 
 
 
