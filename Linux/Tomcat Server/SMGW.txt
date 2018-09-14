@@ -1,0 +1,58 @@
+#!/bin/bash
+# 
+# chkconfig: 35 100 02
+# description:SMGW start,stop,restart,status
+# Start the SMGW
+# /etc/init.d/SMGW
+
+retval=0
+
+. /etc/rc.d/init.d/functions
+
+start() {
+service mysql start
+sleep 5
+su - sms -c "/home/sms/smsGateway/startSMSGateway.sh"
+#su - sms -c "service Tomcat7 start"
+echo "SMGW started." 
+touch /var/lock/subsys/SMGW
+echo
+}
+
+stop() {
+su - sms -c "killall java"
+service mysql stop
+echo "SMGW stopped."
+rm -f /var/lock/subsys/SMGW
+echo
+}
+restart() {
+stop
+sleep 1
+start
+}
+status() {
+ps -ef | grep DSMGW | grep -v grep && ps -ef | grep tomcat | grep -v grep && ps -ef | grep mysql | grep -v grep
+retval=$?
+exit retval
+}
+case "$1" in
+start)
+status && exit 0
+start
+;;
+stop)
+stop
+;;
+status)
+status
+;;
+restart|reload)
+restart
+;;
+*)
+echo "Usage: $0 {start|stop|reload|restart|status}"
+exit 1
+;;
+esac
+exit 0

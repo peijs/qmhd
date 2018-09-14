@@ -1,0 +1,44 @@
+less /etc/init.d/tomcat
+#!/bin/sh
+#
+retval=0
+
+. /etc/rc.d/init.d/functions
+
+start() {
+	su - sms -c "service Tomcat7 start"
+    retval=$?
+    return $retval
+}
+
+stop() {
+    su - sms -c "ps -ef | grep tomcat | grep -v grep | awk '{print $2}' | xargs kill -9 > /dev/null"
+#	su - sms -c "ps -ef | grep DSMGW | grep -v grep | awk '{print $2}' | xargs kill -9 > /dev/null"
+    retval=0
+}
+restart(){
+    stop
+    sleep 1
+    start
+} 
+case "$1" in
+    start)
+        status && exit 0
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        ps -ef | grep tomcat | grep -v grep
+        retval=$?
+        ;;
+    restart|reload)
+        restart
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|reload|restart|status}"
+        retval=2
+        ;;
+esac
+exit $retval
