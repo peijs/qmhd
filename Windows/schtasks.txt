@@ -1,0 +1,5 @@
+schtasks /Create /RU "NT AUTHORITY\SYSTEM" /SC WEEKLY /D MON,FRI,SUN /TN "TomcatRstart" /TR "C:\myBat\1.bat" /ST 23:59 /DU 06:01 /RI 360 /F
+schtasks /Create /RU "NT AUTHORITY\SYSTEM" /SC WEEKLY /D MON,FRI,SUN /TN "TomcatRstart" /TR "C:\myBat\1.bat" /ST 23:59 
+schtasks /delte /TN "TomcatRstart"
+
+schtasks /Create /RU "NT AUTHORITY\SYSTEM" /SC WEEKLY /D MON,FRI,SUN /TN "TomcatRstart" /TR "C:\myBat\1.bat" /ST 23:59
