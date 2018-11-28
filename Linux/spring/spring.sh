@@ -107,29 +107,6 @@ function stop() {
 	fi
 }
 
-# 重启程序
-function restart() {
-	filePah=${APP_NAME}
-	# 处理相对路径
-	if [ ${filePah:0:1} != "/" ]; then
-		filePah="`pwd`/${filePah}"
-	fi
-	# 用文件名作为 APP_NAME
-	APP_NAME=${filePah##*/}
-	APP_NAME=${APP_NAME%%.*}
-
-	# 检查是否已经存在
-	check
-	if [ ${RUNNING} == "true" ]; then
-		echo "App already running!"
-	else
-		echo "restart..."
-		stop
-		start
-		check
-		echo "Retart success!"
-	fi
-}
 function list () {
 	if [ ${APP_NAME} == "all" ]; then
 		if [ ${SYSTEM} == 'Linux' ]; then
@@ -168,9 +145,6 @@ else
 	# 停止程序
 	elif [ ${OPERATE} == "stop" ]; then
 		stop
-	# 重启程序
-	elif [ ${OPERATE} == "restart" ]; then
-		restart
 	# 检查查询运行状态
 	elif [ ${OPERATE} == "check" ]; then
 		check
