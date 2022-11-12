@@ -10,7 +10,7 @@ print_info(){
 	CA_COMMON_NAME=qmhd.com.cn
 
 	COUNTRY_NAME=CN
-	COMMON_NAME=mail.qmhd.com.cn
+	COMMON_NAME=zabbix.qmhd.com.cn
 	PASSWORD=toortoor
 	EMAIL_ADDR=Anonymous@an.com
 	STAT_NAME=BEIJING
@@ -33,7 +33,7 @@ print_info(){
      
     print_info "begin gen root certifate"
     # create root private key
-    openssl genrsa -out root-ca.key 1024
+    openssl genrsa -out root-ca.key 2048
     # create root CSR
     openssl req -new -passin pass:${PASSWORD} -out root-ca.csr -key root-ca.key -subj /C=${COUNTRY_NAME}/ST=${STAT_NAME}/L=${LOCALITY_NAME}/O=${ORGANIZATIN_NAME}/OU=${ORGANIZATIN_UNIT_NAME}/CN=${CA_COMMON_NAME}/emailAddress=${EMAIL_ADDR}
     # create self-signed root key
