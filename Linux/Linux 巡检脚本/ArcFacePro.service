@@ -1,0 +1,50 @@
+#Vservion 1.1-20210928  //通用Spring boot 架构服务脚本
+[Unit]
+Description=springboot.service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/data/ArcFacePro/javaProject/
+PrivateTmp=false
+Restart=always
+Type=simple
+ExecStart=/usr/bin/java -Dfile.encoding=UTF-8 -server -Xms4096m -Xmx4096m -Xss512k -XX:NewSize=2048m -XX:MaxNewSize=2048m -XX:NewRatio=3 -XX:SurvivorRatio=6 -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -XX:CompressedClassSpaceSize=1024m -XX:+UseCompressedClassPointers -XX:LargePageSizeInBytes=128m -XX:InitialCodeCacheSize=1024m -XX:ReservedCodeCacheSize=1024m -XX:MaxTenuringThreshold=0 -XX:ParallelGCThreads=4 -XX:+CMSParallelRemarkEnabled -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC -jar -Dlogging.config=/data/ArcFacePro/javaProject/logback-spring.xml -Dspring.config.location=/data/ArcFacePro/javaProject/config/application.yml  /data/ArcFacePro/javaProject/ArcFacePro4.1-0.0.1-SNAPSHOT.jar >/dev/null 2>&1 &
+
+User=root
+Group=root
+
+ExecStop=/usr/bin/kill -15  $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+
+#注意！-spring.xxx.xxx 相关参数必须在*.jar路径后添加
+
+#放置服务脚本：/usr/lib/systemd/system/服务名.service
+
+
+#在开机时启用服务：systemctl enable 服务名.service
+#在开机时禁用服务：systemctl disable 服务名.service
+#查看服务是否开机启动：systemctl is-enabled 服务名.service
+
+#启动服务：systemctl start 服务名.service
+#关闭服务：systemctl stop 服务名.service
+#重启服务：systemctl restart 服务名.service
+#显示服务的状态：systemctl status 服务名.service
+
+
+#在开机时禁用服务：systemctl disable 服务名.service
+#查看已启动的服务列表：systemctl list-unit-files|grep enabled
+#查看启动失败的服务列表：systemctl --failed
+#重新加载已修改的服务：systemctl daemon-reload
+
+#jvm7
+#java -Dfile.encoding=UTF-8 -server -Xms4096M -Xmx4096M -XX:PermSize=4096M -XX:MaxPermSize=4096M -XX:NewSize=4096M -XX:MaxNewSize=4096M -Xss512k -Xmn1024m  -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC -XX:SurvivorRatio=6 -XX:+UseCMSCompactAtFullCollection -XX:MaxTenuringThreshold=0 -XX:ParallelGCThreads=4 -jar /data/UnicomSMS/sms/sms-1.0.20210729-release.jar --spring.config.location=/data/UnicomSMS/sms/application.properties --spring.application.name=sms.service >/dev/null 2>&1 &
+#jvm8
+#java -Dfile.encoding=UTF-8 -server -Xms4096m -Xmx4096m -Xss512k -XX:NewSize=2048m -XX:MaxNewSize=2048m -XX:NewRatio=3 -XX:SurvivorRatio=6 -XX:MetaspaceSize=512m -XX:MaxMetaspaceSize=512m -XX:CompressedClassSpaceSize=1024m -XX:+UseCompressedClassPointers -XX:LargePageSizeInBytes=128m -XX:InitialCodeCacheSize=1024m -XX:ReservedCodeCacheSize=1024m -XX:MaxTenuringThreshold=0 -XX:ParallelGCThreads=4 -XX:+CMSParallelRemarkEnabled -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC -jar /data/UnicomSMS/sms/sms-1.0.20210729-release.jar --spring.config.location=/data/UnicomSMS/sms/application.properties --spring.application.name=sms.service >/dev/null 2>&1 &
+
+#https://github.com/vipcolud/monitor
+#https://app.yinxiang.com/fx/6cb8eed8-553e-43a4-b098-739bf0be62f1
+#https://github.com/zhangzeli/JVM
+#https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties
