@@ -1,4 +1,5 @@
 #!/bin/bash
+#*/1 * * * * root /usr/local/bin/secure.sh >/dev/null 2>&1
 cat /var/log/secure|awk '/Failed/{print $(NF-3)}'|sort|uniq -c|awk '{print $2"="$1;}' > /var/log/black.txt
 	for i in `cat  /var/log/black.txt`
 		do
